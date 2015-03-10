@@ -27,9 +27,10 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
      * Creates new form CurrentWeatherPanel
      */
     public CurrentWeatherPanel() {
-        
+        initBackground();
         initFont();
        initComponents();
+       
        initalize();
       
        
@@ -38,7 +39,7 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         Font smallIcon = Util.getWeatherFont(25);
         
         cityLabel.setText("London");
-        cityLabel.setFont(new Font("Arial",0,12));
+        cityLabel.setFont(new Font("Arial",1,12));
         cityLabel.setForeground(Color.WHITE);
         
         windSpeedIcon.setText("F");
@@ -78,10 +79,14 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         weatherDesc.setFont(new Font("Arial",1,13));
         weatherDesc.setForeground(Color.WHITE);
         
+        degreeSymbol.setText("°");
+        degreeSymbol.setFont(new Font("Arial",1,35));
+        degreeSymbol.setForeground(Color.WHITE);
+        
         setColor(new Color(255,255,255,100));
         jPanel1.setOpaque(false);
-        
-        
+        jPanel2.setOpaque(false);
+       
         
     }
     public void setColor(Color c){
@@ -98,13 +103,15 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         windDirectionLabel = new javax.swing.JLabel();
         cityLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        windSpeedIcon = new javax.swing.JLabel();
-        humidIcon = new javax.swing.JLabel();
-        humidLabel = new javax.swing.JLabel();
-        windSpeedLabel = new javax.swing.JLabel();
         temperatureLabel = new javax.swing.JLabel();
         weatheRIcon = new javax.swing.JLabel();
         weatherDesc = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        windSpeedIcon = new javax.swing.JLabel();
+        humidLabel = new javax.swing.JLabel();
+        humidIcon = new javax.swing.JLabel();
+        windSpeedLabel = new javax.swing.JLabel();
+        degreeSymbol = new javax.swing.JLabel();
 
         windDirectionIcon.setFont(weatherFont2);
         windDirectionIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -127,54 +134,11 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        windSpeedIcon.setFont(weatherFont2);
-        windSpeedIcon.setText("windSpeedIcon");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        jPanel1.add(windSpeedIcon, gridBagConstraints);
-
-        humidIcon.setFont(weatherFont2);
-        humidIcon.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        humidIcon.setText("humidIcon");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        jPanel1.add(humidIcon, gridBagConstraints);
-
-        humidLabel.setText("humidLabel");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        jPanel1.add(humidLabel, gridBagConstraints);
-
-        windSpeedLabel.setText("windSpeedLabel");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        jPanel1.add(windSpeedLabel, gridBagConstraints);
-
         temperatureLabel.setText("temperature");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_START;
         gridBagConstraints.weightx = 1.0;
@@ -185,20 +149,80 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         jPanel1.add(weatheRIcon, gridBagConstraints);
 
         weatherDesc.setText("weatherDesc");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        jPanel1.add(weatherDesc, gridBagConstraints);
+
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        windSpeedIcon.setFont(weatherFont2);
+        windSpeedIcon.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        windSpeedIcon.setText("windSpeedIcon");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        jPanel1.add(weatherDesc, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 1);
+        jPanel2.add(windSpeedIcon, gridBagConstraints);
+
+        humidLabel.setText("humidLabel");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 1, 0, 0);
+        jPanel2.add(humidLabel, gridBagConstraints);
+
+        humidIcon.setFont(weatherFont2);
+        humidIcon.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        humidIcon.setText("humidIcon");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 1);
+        jPanel2.add(humidIcon, gridBagConstraints);
+
+        windSpeedLabel.setText("windSpeedLabel");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 1, 0, 0);
+        jPanel2.add(windSpeedLabel, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        jPanel1.add(jPanel2, gridBagConstraints);
+
+        degreeSymbol.setText("°");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        jPanel1.add(degreeSymbol, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -225,7 +249,8 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         weatherFont2 = Util.getWeatherFont(25);
                 }
     public void initBackground(){
-        String filePath = "C:\\Users\\User\\Documents\\NetBeansProjects\\GUIProject\\assets\\background.png";
+        
+        String filePath = "assets\\background.png";
         image = Util.scaleImage(320, 480, filePath);
     }
     public void setWeatherImage(String filePath){
@@ -246,14 +271,17 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
     protected void paintComponent(Graphics g){
         
         super.paintComponent(g);
+        initBackground();
     //    initBackground();
         g.drawImage(image,0,0,null);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cityLabel;
+    private javax.swing.JLabel degreeSymbol;
     private javax.swing.JLabel humidIcon;
     private javax.swing.JLabel humidLabel;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel temperatureLabel;
     private javax.swing.JLabel weatheRIcon;
     private javax.swing.JLabel weatherDesc;

@@ -86,7 +86,7 @@ public class Util {
     
     }
     public static Font getWeatherFont(int size){
-        return getFont("C:\\Users\\User\\Documents\\NetBeansProjects\\GUIProject\\assets\\Font\\weather_font.ttf",size);
+        return getFont("assets\\Font\\weather_font.ttf",size);
     }
     public static String[] getNextDays(int n){
         String[] days = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
