@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package weatherapp;
+package gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -25,6 +25,9 @@ public class TemperatureGraph extends javax.swing.JPanel
     
     
     int[] temps = new int[5];
+    public TemperatureGraph(){
+        
+    }
     public TemperatureGraph(int firstTemp,int secondTemp,int thirdTemp,int fourthTemp,int fifthTemp)
     {
         temps[0] = firstTemp;
@@ -37,7 +40,15 @@ public class TemperatureGraph extends javax.swing.JPanel
         setSize(500,500);
         this.setVisible(true);
     }
-    
+    public void initTemp(int firstTemp, int secondTemp, int thirdTemp, int fourthTemp, int fifthTemp){
+        temps[0] = firstTemp;
+        temps[1] = secondTemp;
+        temps[2] = thirdTemp;
+        temps[3] = fourthTemp;
+        temps[4] = fifthTemp;
+        totalX = Xright - Xleft + 1;
+        totalY = Ybottom - Ytop + 1;
+    }
     @Override
     public void paint(Graphics g)
     {

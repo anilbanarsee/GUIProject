@@ -9,15 +9,17 @@ package gui;
  *
  * @author Reetoo
  */
-public class VerticalLayoutPanel extends javax.swing.JPanel {
+public class TemperatureGraphPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form VerticalLayoutPanel
+     * Creates new form TemperatureGraphPanel
      */
-    public VerticalLayoutPanel() {
+    public TemperatureGraphPanel() {
         initComponents();
     }
-
+    public TemperatureGraph getGraph(){
+        return temperatureGraph1;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,27 +29,33 @@ public class VerticalLayoutPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        futureWeatherPanel1 = new gui.FutureWeatherPanel();
+        temperatureGraph1 = new gui.TemperatureGraph();
+
+        javax.swing.GroupLayout temperatureGraph1Layout = new javax.swing.GroupLayout(temperatureGraph1);
+        temperatureGraph1.setLayout(temperatureGraph1Layout);
+        temperatureGraph1Layout.setHorizontalGroup(
+            temperatureGraph1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        temperatureGraph1Layout.setVerticalGroup(
+            temperatureGraph1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(futureWeatherPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(temperatureGraph1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(futureWeatherPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(temperatureGraph1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.FutureWeatherPanel futureWeatherPanel1;
+    private gui.TemperatureGraph temperatureGraph1;
     // End of variables declaration//GEN-END:variables
 }

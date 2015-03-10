@@ -20,9 +20,9 @@ public class HorizontalLayoutPanel extends javax.swing.JPanel {
         initComponents();
     }
     public void setColour(Color c){
-        currentWeatherPanel1.setColour(c);
-        thisWeekWeatherPanel1.setColour(c);
-        weatherPanel1.setColour(c);
+       // currentWeatherPanel1.setColour(c);
+        //thisWeekWeatherPanel1.setColour(c);
+       // weatherPanel1.setColour(c);
     }
 
     /**
@@ -35,25 +35,9 @@ public class HorizontalLayoutPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        currentWeatherPanel1 = new gui.CurrentWeatherPanel();
-        thisWeekWeatherPanel1 = new gui.ThisWeekWeatherPanel();
         trainStatusPanel1 = new gui.TrainStatusPanel();
-        weatherPanel1 = new gui.WeatherPanel();
 
         setLayout(new java.awt.GridBagLayout());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        add(currentWeatherPanel1, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        add(thisWeekWeatherPanel1, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -61,19 +45,10 @@ public class HorizontalLayoutPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         add(trainStatusPanel1, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        add(weatherPanel1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.CurrentWeatherPanel currentWeatherPanel1;
-    private gui.ThisWeekWeatherPanel thisWeekWeatherPanel1;
     private gui.TrainStatusPanel trainStatusPanel1;
-    private gui.WeatherPanel weatherPanel1;
     // End of variables declaration//GEN-END:variables
 }

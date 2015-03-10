@@ -15,9 +15,10 @@ public class FutureWeatherPanel extends javax.swing.JPanel {
      * Creates new form FutureWeatherPanel
      */
     public FutureWeatherPanel() {
+        
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,20 +27,21 @@ public class FutureWeatherPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        temperatureGraphPanel1 = new gui.TemperatureGraphPanel();
+
+        setLayout(new java.awt.GridBagLayout());
+
+        temperatureGraphPanel1.getGraph().initTemp(23,24,26,24,27);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        add(temperatureGraphPanel1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private gui.TemperatureGraphPanel temperatureGraphPanel1;
     // End of variables declaration//GEN-END:variables
 }
