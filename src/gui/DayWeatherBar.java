@@ -15,13 +15,17 @@ import java.awt.Font;
  * @author User
  */
 public class DayWeatherBar extends javax.swing.JPanel {
-    Font weatherFont;
+    //Font weatherFont;
     /**
      * Creates new form WeekBar
      */
     public DayWeatherBar() {
-        initFont();
+        //initFont();
         initComponents();
+        initalize();
+    }
+    public void initalize(){
+        weatherIcon.setFont(Util.getWeatherFont(25));
     }
     public void setDayName(String s){
         dayName.setText(s);
@@ -39,9 +43,9 @@ public class DayWeatherBar extends javax.swing.JPanel {
         setBackground(color);
     }
     
-    private void initFont(){
-        weatherFont = Util.getWeatherFont(25);
-    }
+   //private void initFont(){
+    //   weatherFont = Util.getWeatherFont(25);
+   // }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,7 +94,6 @@ public class DayWeatherBar extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 4);
         add(lowTemp, gridBagConstraints);
 
-        weatherIcon.setFont(weatherFont);
         weatherIcon.setForeground(new java.awt.Color(255, 255, 255));
         weatherIcon.setText("T");
         weatherIcon.setAlignmentX(1.0F);

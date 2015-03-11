@@ -6,7 +6,9 @@
 package gui;
 
 import gui.handler.Util;
+import java.awt.GridBagConstraints;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -23,6 +25,7 @@ public class WeekWeather extends javax.swing.JPanel {
         initBars();
         initComponents();
         initiate();
+        initWeatherData();
     }
     public void initWeatherData(){
         String[] nextDays = Util.getNextDays(4);
@@ -31,11 +34,46 @@ public class WeekWeather extends javax.swing.JPanel {
         }
     }
     public void initiate(){
-        add(bar1);
-        add(bar2);
-        add(bar3);
-        add(bar4);
-        add(bar5);
+       
+        
+         GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 0.1;
+        c.weighty = 0.1;
+        
+        add(bar1,c);
+        
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 1;
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 0.1;
+        c.weighty = 0.1;
+        add(bar2,c);
+        
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 2;
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 0.1;
+        c.weighty = 0.1;
+        add(bar3,c);
+        
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 3;
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 0.1;
+        c.weighty = 0.1;
+        add(bar4,c);
+        
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 4;
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 0.1;
+        c.weighty = 0.1;
+        //add(bar5,c);
         
     }
     public void initBars(){
@@ -49,7 +87,15 @@ public class WeekWeather extends javax.swing.JPanel {
         components.add(bar2);
         components.add(bar3);
         components.add(bar4);
-        components.add(bar5);
+        //components.add(bar5);
+        
+    }
+    public void initDayNames(){
+        String[] dayNames = Util.getNextDays(100);
+        bar1.setDayName(dayNames[0]);
+        bar2.setDayName(dayNames[1]);
+        bar3.setDayName(dayNames[2]);
+        bar4.setDayName(dayNames[3]);
         
     }
     /**
@@ -61,7 +107,7 @@ public class WeekWeather extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setLayout(new java.awt.GridLayout());
+        setLayout(new java.awt.GridBagLayout());
     }// </editor-fold>//GEN-END:initComponents
 
 

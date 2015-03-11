@@ -31,6 +31,8 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
 
         temperatureGraph1 = new gui.TemperatureGraph();
 
+        setLayout(new java.awt.GridLayout());
+
         javax.swing.GroupLayout temperatureGraph1Layout = new javax.swing.GroupLayout(temperatureGraph1);
         temperatureGraph1.setLayout(temperatureGraph1Layout);
         temperatureGraph1Layout.setHorizontalGroup(
@@ -42,16 +44,7 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(temperatureGraph1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(temperatureGraph1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        add(temperatureGraph1);
     }// </editor-fold>//GEN-END:initComponents
 
 

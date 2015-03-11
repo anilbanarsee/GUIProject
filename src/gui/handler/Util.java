@@ -89,9 +89,9 @@ public class Util {
         return getFont("assets\\Font\\weather_font.ttf",size);
     }
     public static String[] getNextDays(int n){
-        String[] days = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
+        String[] days = {"Sunday  ","Monday  ","Tuesday ","Wednesday","Thursday","Friday  ","Saturday"};
         int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        System.out.println(day+"GG");
+        //System.out.println(day+"GG");
         int x = 1;
         day++;
         String[] nextDays = new String[4];

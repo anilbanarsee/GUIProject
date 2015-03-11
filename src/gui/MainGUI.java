@@ -32,13 +32,18 @@ public class MainGUI extends javax.swing.JFrame{
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         verticalLayoutPanel1 = new gui.VerticalLayoutPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(320, 480));
         getContentPane().setLayout(new java.awt.GridBagLayout());
-        getContentPane().add(verticalLayoutPanel1, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        getContentPane().add(verticalLayoutPanel1, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
