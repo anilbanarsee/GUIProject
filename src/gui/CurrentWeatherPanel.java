@@ -33,14 +33,14 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
        
        initalize();
       
-       
+       setOpaque(false);
     }
     public void initalize(){
         Font smallIcon = Util.getWeatherFont(25);
         
-        cityLabel.setText("London");
-        cityLabel.setFont(new Font("Arial",1,12));
-        cityLabel.setForeground(Color.WHITE);
+        //cityLabel.setText("London");
+        //cityLabel.setFont(new Font("Arial",1,12));
+        //cityLabel.setForeground(Color.WHITE);
         
         windSpeedIcon.setText("F");
         windSpeedIcon.setFont(smallIcon);
@@ -83,7 +83,7 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         degreeSymbol.setFont(new Font("Arial",1,35));
         degreeSymbol.setForeground(Color.WHITE);
         
-        setColor(new Color(255,255,255,100));
+        //setColor(new Color(255,255,255,100));
         jPanel1.setOpaque(false);
         jPanel2.setOpaque(false);
        
@@ -101,7 +101,6 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
 
         windDirectionIcon = new javax.swing.JLabel();
         windDirectionLabel = new javax.swing.JLabel();
-        cityLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         temperatureLabel = new javax.swing.JLabel();
         weatheRIcon = new javax.swing.JLabel();
@@ -120,17 +119,12 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         windDirectionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         windDirectionLabel.setText("windDirectionLabel");
 
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
         setLayout(new java.awt.GridBagLayout());
-
-        cityLabel.setText("cityLabel");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        add(cityLabel, gridBagConstraints);
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -227,8 +221,15 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         add(jPanel1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
     public void setLocationText(String s){
         
     }
@@ -276,7 +277,6 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         g.drawImage(image,0,0,null);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel cityLabel;
     private javax.swing.JLabel degreeSymbol;
     private javax.swing.JLabel humidIcon;
     private javax.swing.JLabel humidLabel;

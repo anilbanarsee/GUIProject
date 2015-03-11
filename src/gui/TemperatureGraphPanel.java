@@ -5,20 +5,45 @@
  */
 package gui;
 
+import gui.handler.GUIHandler;
+import java.util.ArrayList;
+
 /**
  *
  * @author Reetoo
  */
 public class TemperatureGraphPanel extends javax.swing.JPanel {
-
+    TemperatureGraph temperatureGraph;
     /**
      * Creates new form TemperatureGraphPanel
      */
     public TemperatureGraphPanel() {
         initComponents();
+        initGraph();
+        initData();
+        setOpaque(false);
     }
     public TemperatureGraph getGraph(){
-        return temperatureGraph1;
+        return temperatureGraph;
+    }
+    public void initGraph(){
+        temperatureGraph = new TemperatureGraph();
+        ArrayList<Integer> temps = new ArrayList<>();
+        temps.add(0);
+        temps.add(0);
+        temps.add(0);
+        temps.add(0);
+        temps.add(0);
+        temps.add(0);
+        temps.add(0);
+        temps.add(0);
+        temperatureGraph.setGraph(temps);
+        add(temperatureGraph);
+    }
+    public void initData(){
+        ArrayList<Integer> data = GUIHandler.getTodayTemperatures();
+        temperatureGraph.setGraph(data);
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,26 +54,10 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        temperatureGraph1 = new gui.TemperatureGraph();
-
-        setLayout(new java.awt.GridLayout());
-
-        javax.swing.GroupLayout temperatureGraph1Layout = new javax.swing.GroupLayout(temperatureGraph1);
-        temperatureGraph1.setLayout(temperatureGraph1Layout);
-        temperatureGraph1Layout.setHorizontalGroup(
-            temperatureGraph1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        temperatureGraph1Layout.setVerticalGroup(
-            temperatureGraph1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        add(temperatureGraph1);
+        setLayout(new java.awt.GridLayout(1, 0));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.TemperatureGraph temperatureGraph1;
     // End of variables declaration//GEN-END:variables
 }

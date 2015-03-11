@@ -23,6 +23,8 @@ public class DayWeatherBar extends javax.swing.JPanel {
         //initFont();
         initComponents();
         initalize();
+        jPanel1.setOpaque(false);
+        setOpaque(false);
     }
     public void initalize(){
         weatherIcon.setFont(Util.getWeatherFont(25));
@@ -30,14 +32,14 @@ public class DayWeatherBar extends javax.swing.JPanel {
     public void setDayName(String s){
         dayName.setText(s);
     }
-    public void setHighTemp(int n){
-        highTemp.setText(n+"°C");
+    public void setHighTemp(String n){
+        highTemp.setText(n+"°");
     }
-    public void setLowTemp(int n){
-        lowTemp.setText(n+"°C");
+    public void setLowTemp(String n){
+        lowTemp.setText(n+"°");
     }
-    public void setWeather(int n){
-        weatherIcon.setIcon(WeatherCodeHandler.getWeatherIcon(n));
+    public void setWeather(String s){
+        weatherIcon.setText(s);
     }
      public void setColour(Color color){
         setBackground(color);
@@ -57,9 +59,10 @@ public class DayWeatherBar extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         dayName = new javax.swing.JLabel();
+        weatherIcon = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         highTemp = new javax.swing.JLabel();
         lowTemp = new javax.swing.JLabel();
-        weatherIcon = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 153, 0));
         setLayout(new java.awt.GridBagLayout());
@@ -69,47 +72,43 @@ public class DayWeatherBar extends javax.swing.JPanel {
         dayName.setText("Monday");
         dayName.setAlignmentX(1.0F);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         add(dayName, gridBagConstraints);
 
-        highTemp.setForeground(new java.awt.Color(255, 255, 255));
-        highTemp.setText("0°");
-        highTemp.setAlignmentX(1.0F);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        add(highTemp, gridBagConstraints);
-
-        lowTemp.setForeground(new java.awt.Color(255, 255, 255));
-        lowTemp.setText("/0°");
-        lowTemp.setAlignmentX(1.0F);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 4);
-        add(lowTemp, gridBagConstraints);
-
         weatherIcon.setForeground(new java.awt.Color(255, 255, 255));
         weatherIcon.setText("T");
         weatherIcon.setAlignmentX(1.0F);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.weightx = 1.0;
         add(weatherIcon, gridBagConstraints);
+
+        highTemp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        highTemp.setForeground(new java.awt.Color(255, 255, 255));
+        highTemp.setText("0");
+        highTemp.setAlignmentX(1.0F);
+        jPanel1.add(highTemp);
+
+        lowTemp.setForeground(new java.awt.Color(204, 204, 204));
+        lowTemp.setText("0");
+        lowTemp.setAlignmentX(1.0F);
+        jPanel1.add(lowTemp);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        add(jPanel1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel dayName;
     private javax.swing.JLabel highTemp;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lowTemp;
     private javax.swing.JLabel weatherIcon;
     // End of variables declaration//GEN-END:variables

@@ -17,6 +17,7 @@ public class FutureWeatherPanel extends javax.swing.JPanel {
     public FutureWeatherPanel() {
         
         initComponents();
+        setOpaque(false);
     }
     
     /**

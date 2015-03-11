@@ -5,6 +5,7 @@
  */
 package gui;
 
+import gui.handler.GUIHandler;
 import gui.handler.Util;
 import java.awt.GridBagConstraints;
 import java.util.ArrayList;
@@ -26,12 +27,15 @@ public class WeekWeather extends javax.swing.JPanel {
         initComponents();
         initiate();
         initWeatherData();
+        setOpaque(false);
+        
     }
     public void initWeatherData(){
         String[] nextDays = Util.getNextDays(4);
         for(int i=0; i<components.size(); i++){
             components.get(i).setDayName(nextDays[i]);
         }
+        getData();
     }
     public void initiate(){
        
@@ -75,6 +79,14 @@ public class WeekWeather extends javax.swing.JPanel {
         c.weighty = 0.1;
         //add(bar5,c);
         
+    }
+    public void getData(){
+        ArrayList<ArrayList<String>> data = GUIHandler.getFourDaysWeather();
+        for(int i=0; i<data.size(); i++){
+            components.get(i).setWeather(data.get(i).get(0));
+            components.get(i).setHighTemp(data.get(i).get(1));
+            components.get(i).setLowTemp(data.get(i).get(2));
+        }
     }
     public void initBars(){
         bar1 = new DayWeatherBar();

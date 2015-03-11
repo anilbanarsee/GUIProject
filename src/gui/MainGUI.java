@@ -6,23 +6,38 @@
 package gui;
 
 import java.awt.Color;
+import javax.swing.Action;
+import javax.swing.KeyStroke;
 
 /**
  *
  * @author User
  */
 public class MainGUI extends javax.swing.JFrame{
-
+    int indexSelected = 0;
+    
     /**
      * Creates new form MainGUI
      */
     public MainGUI() {
         initComponents();
         setColour(new Color(0,51,204));
+        createControlPanel();
+        
+    }
+    public void createControlPanel(){
+        ControlPanel a = new ControlPanel(this);
+        a.setVisible(true);
     }
     public void setColour(Color c){
         //horizontalLayoutPanel1.setColour(c);
         //verticalLayoutPanel1.setColour(c);
+    }
+    public void swipeLeft(){
+        mainPanel1.swipeLeft();
+    }
+    public void swipeRight(){
+        mainPanel1.swipeRight();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,16 +49,18 @@ public class MainGUI extends javax.swing.JFrame{
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        verticalLayoutPanel1 = new gui.VerticalLayoutPanel();
+        mainPanel1 = new gui.MainPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(320, 480));
         getContentPane().setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.weighty = 0.1;
-        getContentPane().add(verticalLayoutPanel1, gridBagConstraints);
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(mainPanel1, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -84,7 +101,7 @@ public class MainGUI extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.VerticalLayoutPanel verticalLayoutPanel1;
+    private gui.MainPanel mainPanel1;
     // End of variables declaration//GEN-END:variables
 
 

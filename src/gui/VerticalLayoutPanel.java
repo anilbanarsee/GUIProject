@@ -10,14 +10,33 @@ package gui;
  * @author Reetoo
  */
 public class VerticalLayoutPanel extends javax.swing.JPanel {
-
+    int indexSelected = 0;
     /**
      * Creates new form VerticalLayoutPanel
      */
     public VerticalLayoutPanel() {
         initComponents();
+        setOpaque(false);
     }
-
+    public void setCurrentWeatherPanel(){
+        removeAll();
+        add(new CurrentWeatherPanel());
+        revalidate();
+        repaint();
+    }
+    public void setFutureWeatherPanel(){
+        removeAll();
+        add(new FutureWeatherPanel());
+        revalidate();
+        repaint();
+    }
+        public void setTravelPanel(){
+        removeAll();
+        add(new TravelPanel());
+        revalidate();
+        repaint();
+    }
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,17 +45,49 @@ public class VerticalLayoutPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         futureWeatherPanel1 = new gui.FutureWeatherPanel();
 
-        setLayout(new java.awt.GridBagLayout());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.weighty = 0.1;
-        add(futureWeatherPanel1, gridBagConstraints);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
+        setLayout(new java.awt.GridLayout());
+
+        futureWeatherPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                futureWeatherPanel1MouseClicked(evt);
+            }
+        });
+        futureWeatherPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                futureWeatherPanel1KeyPressed(evt);
+            }
+        });
+        add(futureWeatherPanel1);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+               
+    }//GEN-LAST:event_formMouseClicked
+
+    private void futureWeatherPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_futureWeatherPanel1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_futureWeatherPanel1MouseClicked
+
+    private void futureWeatherPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_futureWeatherPanel1KeyPressed
+
+    }//GEN-LAST:event_futureWeatherPanel1KeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+   
+    }//GEN-LAST:event_formKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
