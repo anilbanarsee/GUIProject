@@ -1,7 +1,7 @@
 /**
  * A simple temperature graph to show 9 temperatures
  */
-package gui;
+package weatherapp;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,7 +21,7 @@ public class TemperatureGraph extends javax.swing.JPanel {
     int Ytop = 20;  
     int Ybottom = 300;
     //These values are defualts
-    public Color graphColor = Color.WHITE;
+    public Color graphColor = Color.blue;
 
     int totalX, totalY;
 
@@ -54,105 +54,41 @@ public class TemperatureGraph extends javax.swing.JPanel {
         //Painting graph goes here
         g.setColor(graphColor);
         drawLineGraph(g);
-        g.drawString("Temperature", 170, 290); // title
     }
 
     //Draw the line graph
     public void drawLineGraph(Graphics g)
     {
+
+
+        drawAxes(g);
+        drawNormalGraph(g);
+    }
+    
+    public void drawNormalGraph(Graphics g)
+    {
         //Find Largest and smallest numbers
         int largestNumber, smallestNumber;
         largestNumber = findLargest(temps);
         smallestNumber = findSmallest(temps);
-
-        if(largestNumber>0)
-        {
-            if(smallestNumber<0)
-            {
-                //Here we need to draw a negative and positive graph
-                drawAxes(g,2,largestNumber,smallestNumber);
-                drawBothGraph(g,smallestNumber,largestNumber);
-            }
-            else
-            {
-                //Here we draw a positive graph
-                drawAxes(g,1,largestNumber,smallestNumber);
-                drawNormalGraph(g,smallestNumber,largestNumber);
-            }
-        }
-        else
-        {
-            //here we draw a negative graph
-            drawAxes(g,1,largestNumber,smallestNumber);
-            drawNormalGraph(g,smallestNumber,largestNumber);
-        }
-
-        
-    }
-
-    /**
-     * This graph method will be used when i have both a postitive and negative axis
-     * @param g
-     * @param smallestNumber
-     * @param largestNumber 
-     */
-    public void drawBothGraph(Graphics g,int smallestNumber,int largestNumber)
-    {
-        int i, x1, y1, x2, y2, xIncrement, yIncrement;
-        xIncrement = totalX / temps.size();
-        yIncrement = totalY/(-smallestNumber+largestNumber);
-        float middleLower = ((float)smallestNumber/((float)largestNumber-(float)smallestNumber))*(float)Ybottom; //Space between middle and bottom
-        float middleUpper = ((float)largestNumber/((float)largestNumber-(float)smallestNumber))*(float)Ybottom;  //space between top and middle
         
         
-        //Set the start point as the first temperature point
-        x1 = getXCoordinate(1,xIncrement);
-        y1 = getYCoordinate(temps.get(0),yIncrement);
-        
-        //Compute and plot the data points
-        for (i = 0; i < temps.size(); i++)
-        {
-            if (temps.get(i) == null)
-            {
-                continue;
-            }
-            x2 = getXCoordinate(i + 1, xIncrement);
-            if(temps.get(i)>0)
-            {
-                y2 = getYCoordinate(temps.get(i), yIncrement);
-                g.drawString(Integer.toString(temps.get(i)), x2, y2);
-                g.fillOval(x2, y2, 5, 5);
-                g.drawLine(x1, y1, x2, y2);
-            }
-            else
-            {
-                y2 = getYCoordinateWithMiddle(temps.get(i), yIncrement,(int)middleUpper);
-                g.drawString(Integer.toString(temps.get(i)), x2, y2);
-                g.fillOval(x2, y2, 5, 5);
-                g.drawLine(x1, y1, x2, y2);
-            }
-            x1 = x2;
-            y1 = y2;
-        }
-    }
-    
-    public void drawNormalGraph(Graphics g,int smallestNumber,int largestNumber)
-    {
-        int i, x1, y1, x2, y2, xIncrement, yIncrement;
+        float xIncrement, yIncrement;
+        int i,x1,y1,x2,y2;
         //Compute the x and y increments
         xIncrement = totalX / 8;
-        if (largestNumber == 0)
+        if(largestNumber==smallestNumber)
         {
-            yIncrement = 0;
+            yIncrement=0;
         }
         else
         {
-            yIncrement = totalY / largestNumber;
+            yIncrement = totalY / (largestNumber-smallestNumber);
         }
 
         //Set the initial origin point
-        x1 = getXCoordinate(1, xIncrement);
-        y1 = getYCoordinate(temps.get(0), yIncrement);
+        x1 = (int)getXCoordinate(1, xIncrement);
+        y1 = (int)getYCoordinate(Math.abs(temps.get(0)), yIncrement,smallestNumber);
 
         //Compute and plot the data points
         for (i = 0; i < temps.size(); i++)
@@ -161,9 +97,9 @@ public class TemperatureGraph extends javax.swing.JPanel {
             {
                 continue;
             }
-            x2 = getXCoordinate(i + 1, xIncrement);
-            y2 = getYCoordinate(temps.get(i), yIncrement);
-            g.drawString(Integer.toString(temps.get(i)), x2, y2-10);
+            x2 = (int)getXCoordinate(i + 1, xIncrement);
+            y2 = (int)getYCoordinate((float)temps.get(i), yIncrement,smallestNumber);
+            g.drawString(Integer.toString(temps.get(i)),(int)x2,(int) y2-10);
             g.fillOval(x2, y2, 5, 5);
             g.drawLine(x1, y1, x2, y2);
             x1 = x2;
@@ -172,41 +108,24 @@ public class TemperatureGraph extends javax.swing.JPanel {
     }
     
     
-    public void drawAxes(Graphics g,int caseNumber,int largest,int smallest)
+    public void drawAxes(Graphics g)
     {
-        switch(caseNumber)
-        {
-            case 1:
-                //Just draw positive axes
-                g.drawLine(Xleft, Ytop, Xleft, Ybottom);
-                g.drawLine(Xleft, Ybottom, Xright, Ybottom);   
-                break;
-            case 2:
-                //Draw negative and positive, using a ratio between the highest and lowest numbers
-                g.drawLine(Xleft, Ytop, Xleft, Ybottom);
-                float middle = ((float)largest/((float)largest-(float)smallest))*(float)Ybottom;
-                g.drawLine(Xleft, (int)middle, Xright, (int)middle);
-                break;
-        }
+        //Just draw positive axes
+        //g.drawLine(Xleft, Ybottom, Xright, Ybottom);   
     }
 
     //Determining x coordinate
-    public int getXCoordinate(int i, int xIncrement)
+    public float getXCoordinate(float i, float xIncrement)
     {
         return Xleft + xIncrement * i;
     }
 
     //Determining y coordinate
-    public int getYCoordinate(int temp, int yIncrement)
+    public float getYCoordinate(float temp, float yIncrement,float smallestNumber)
     {
-        return Ybottom - yIncrement * temp;
+        return Ybottom - yIncrement * (temp-smallestNumber) ;
     }
     
-    //Determining y coordinate with a middle
-    public int getYCoordinateWithMiddle(int temp, int yIncrement,int middle)
-    {
-        return (Ybottom - middle) - yIncrement * temp;
-    }
     //Finding the largest value in the array
     public int findLargest(ArrayList<Integer> a)
     {
