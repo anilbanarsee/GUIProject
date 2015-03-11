@@ -6,6 +6,7 @@
 package gui;
 
 import gui.handler.GUIHandler;
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 /**
@@ -14,11 +15,13 @@ import java.util.ArrayList;
  */
 public class TemperatureGraphPanel extends javax.swing.JPanel {
     TemperatureGraph temperatureGraph;
+    ArrayList<String> times;
     /**
      * Creates new form TemperatureGraphPanel
      */
     public TemperatureGraphPanel() {
         initComponents();
+        initTimes();
         initGraph();
         initData();
         setOpaque(false);
@@ -27,6 +30,7 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
         return temperatureGraph;
     }
     public void initGraph(){
+        
         temperatureGraph = new TemperatureGraph();
         ArrayList<Integer> temps = new ArrayList<>();
         temps.add(0);
@@ -37,13 +41,25 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
         temps.add(0);
         temps.add(0);
         temps.add(0);
-        temperatureGraph.setGraph(temps);
+        temperatureGraph.setGraph(temps,times,new Dimension(300,300));
         add(temperatureGraph);
     }
     public void initData(){
         ArrayList<Integer> data = GUIHandler.getTodayTemperatures();
-        temperatureGraph.setGraph(data);
+        temperatureGraph.setGraph(data,times,new Dimension(300,300));
         
+    }
+    public void initTimes(){
+        times = new ArrayList<String>();
+        times.clear();
+        times.add("0");
+        times.add("180");
+        times.add("360");
+        times.add("540");
+        times.add("720");
+        times.add("900");
+        times.add("1080");
+        times.add("1260");
     }
     /**
      * This method is called from within the constructor to initialize the form.

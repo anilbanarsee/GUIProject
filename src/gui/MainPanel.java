@@ -6,6 +6,9 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 /**
  *
@@ -13,10 +16,12 @@ import java.awt.Color;
  */
 public class MainPanel extends javax.swing.JPanel {
     int indexSelected = 0;
+    Image img;
     /**
      * Creates new form MainPanel
      */
     public MainPanel() {
+         img = Toolkit.getDefaultToolkit().createImage("assets//background.jpg");
         initComponents();
         this.setBackground(Color.BLACK);
     }
@@ -51,6 +56,11 @@ public class MainPanel extends javax.swing.JPanel {
         if(indexSelected==2){
             verticalLayoutPanel1.setTravelPanel();
         }
+    }
+    @Override
+    public void paintComponent(Graphics g){
+       
+        g.drawImage(img,0,0,null);
     }
     /**
      * This method is called from within the constructor to initialize the form.

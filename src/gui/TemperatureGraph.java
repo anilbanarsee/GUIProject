@@ -1,11 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * A simple temperature graph to show 9 temperatures
  */
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -19,24 +18,32 @@ public class TemperatureGraph extends javax.swing.JPanel {
 
     int Xleft = 25;
     int Xright = 300;
-    int Ytop = 20;  // The y-value entries can be up to 250-100=150.
-    int Ybottom = 200;
+    int Ytop = 20;  
+    int Ybottom = 300;
+    //These values are defualts
+    public Color graphColor = Color.WHITE;
 
     int totalX, totalY;
 
+    //These are the data arrays
     ArrayList<Integer> temps = new ArrayList<>();
+    ArrayList<String> tempsTimes = new ArrayList<>();
 
     public TemperatureGraph()
     {
         setOpaque(false);
     }
 
-    public void setGraph(ArrayList<Integer> temps)
+    public void setGraph(ArrayList<Integer> temps,ArrayList<String> tempsTimes,Dimension d)
     {
         this.temps = temps;
-        totalX = Xright - Xleft + 1;
-        totalY = Ybottom - Ytop + 1;
-        setSize(500, 500);
+        this.tempsTimes = tempsTimes;
+        Xright = d.width-25;
+        Ybottom = d.height-20;
+        //Give some breathing room at bottom and right
+        totalX = Xright - Xleft;
+        totalY = Ybottom - Ytop;
+        setSize(d.width,d.height);
         this.setVisible(true);
     }
 
@@ -45,7 +52,7 @@ public class TemperatureGraph extends javax.swing.JPanel {
     {
         super.paintComponent(g);
         //Painting graph goes here
-        g.setColor(Color.blue);
+        g.setColor(graphColor);
         drawLineGraph(g);
         g.drawString("Temperature", 170, 290); // title
     }
@@ -58,10 +65,82 @@ public class TemperatureGraph extends javax.swing.JPanel {
         largestNumber = findLargest(temps);
         smallestNumber = findSmallest(temps);
 
-        drawAxes(g,largestNumber,smallestNumber);
+        if(largestNumber>0)
+        {
+            if(smallestNumber<0)
+            {
+                //Here we need to draw a negative and positive graph
+                drawAxes(g,2,largestNumber,smallestNumber);
+                drawBothGraph(g,smallestNumber,largestNumber);
+            }
+            else
+            {
+                //Here we draw a positive graph
+                drawAxes(g,1,largestNumber,smallestNumber);
+                drawNormalGraph(g,smallestNumber,largestNumber);
+            }
+        }
+        else
+        {
+            //here we draw a negative graph
+            drawAxes(g,1,largestNumber,smallestNumber);
+            drawNormalGraph(g,smallestNumber,largestNumber);
+        }
+
+        
+    }
+
+    /**
+     * This graph method will be used when i have both a postitive and negative axis
+     * @param g
+     * @param smallestNumber
+     * @param largestNumber 
+     */
+    public void drawBothGraph(Graphics g,int smallestNumber,int largestNumber)
+    {
+        int i, x1, y1, x2, y2, xIncrement, yIncrement;
+        xIncrement = totalX / temps.size();
+        yIncrement = totalY/(-smallestNumber+largestNumber);
+        float middleLower = ((float)smallestNumber/((float)largestNumber-(float)smallestNumber))*(float)Ybottom; //Space between middle and bottom
+        float middleUpper = ((float)largestNumber/((float)largestNumber-(float)smallestNumber))*(float)Ybottom;  //space between top and middle
+        
+        
+        //Set the start point as the first temperature point
+        x1 = getXCoordinate(1,xIncrement);
+        y1 = getYCoordinate(temps.get(0),yIncrement);
+        
+        //Compute and plot the data points
+        for (i = 0; i < temps.size(); i++)
+        {
+            if (temps.get(i) == null)
+            {
+                continue;
+            }
+            x2 = getXCoordinate(i + 1, xIncrement);
+            if(temps.get(i)>0)
+            {
+                y2 = getYCoordinate(temps.get(i), yIncrement);
+                g.drawString(Integer.toString(temps.get(i)), x2, y2);
+                g.fillOval(x2, y2, 5, 5);
+                g.drawLine(x1, y1, x2, y2);
+            }
+            else
+            {
+                y2 = getYCoordinateWithMiddle(temps.get(i), yIncrement,(int)middleUpper);
+                g.drawString(Integer.toString(temps.get(i)), x2, y2);
+                g.fillOval(x2, y2, 5, 5);
+                g.drawLine(x1, y1, x2, y2);
+            }
+            x1 = x2;
+            y1 = y2;
+        }
+    }
+    
+    public void drawNormalGraph(Graphics g,int smallestNumber,int largestNumber)
+    {
         int i, x1, y1, x2, y2, xIncrement, yIncrement;
         //Compute the x and y increments
-        xIncrement = totalX / 5;
+        xIncrement = totalX / 8;
         if (largestNumber == 0)
         {
             yIncrement = 0;
@@ -84,67 +163,30 @@ public class TemperatureGraph extends javax.swing.JPanel {
             }
             x2 = getXCoordinate(i + 1, xIncrement);
             y2 = getYCoordinate(temps.get(i), yIncrement);
+            g.drawString(Integer.toString(temps.get(i)), x2, y2-10);
             g.fillOval(x2, y2, 5, 5);
             g.drawLine(x1, y1, x2, y2);
             x1 = x2;
             y1 = y2;
         }
-      //Label x - axes with grade choices
-        //Not being used
-//      String [ ] label = {"A", "B", "C", "D", "F"};
-//      for (i=1; i<=5; i++)
-//          g.drawString(label[i-1], 100+ i*xIncrement, 270);
-
-        //Label y - axes with quantity of each grade
-        int topy;
-        int bottomy = 0;
-        if (largestNumber % 10 == 0)
-        {
-            topy = largestNumber;
-        }
-        else
-        {
-            topy = (largestNumber / 10 + 1) * 10;
-        }
-        if(smallestNumber<0)
-        {
-            //Label y - axes with quantity of each grade
-            if (-smallestNumber % 10 == 0)
-            {
-                bottomy = -smallestNumber;
-            }
-            else
-            {
-                bottomy =(-smallestNumber / 10 + 1) * 10;
-            }
-        }
-        
-        // i = i+5 controls y value label -- adjust for size of data
-        for (i = 0; i <= topy; i = i + 5)
-        {
-            g.drawString(String.valueOf(i), 5, Ybottom - i * yIncrement + 5);
-        }
-        if(smallestNumber<0)
-        {
-            for (i = 5; i <= bottomy; i = i + 5)
-            {
-                g.drawString("-"+String.valueOf(i), 5, Ybottom + i * yIncrement + 5);
-            }
-        }
     }
-
-    public void drawAxes(Graphics g,int largest,int smallest)
+    
+    
+    public void drawAxes(Graphics g,int caseNumber,int largest,int smallest)
     {
-        //Need to figure out how big to draw axis
-        if(smallest<0)
+        switch(caseNumber)
         {
-            g.drawLine(Xleft, Ytop, Xleft, Ybottom-smallest*10);
-            g.drawLine(Xleft, Ybottom, Xright, Ybottom);
-        }
-        else
-        {
-            g.drawLine(Xleft, Ytop, Xleft, Ybottom);
-            g.drawLine(Xleft, Ybottom, Xright, Ybottom);   
+            case 1:
+                //Just draw positive axes
+                g.drawLine(Xleft, Ytop, Xleft, Ybottom);
+                g.drawLine(Xleft, Ybottom, Xright, Ybottom);   
+                break;
+            case 2:
+                //Draw negative and positive, using a ratio between the highest and lowest numbers
+                g.drawLine(Xleft, Ytop, Xleft, Ybottom);
+                float middle = ((float)largest/((float)largest-(float)smallest))*(float)Ybottom;
+                g.drawLine(Xleft, (int)middle, Xright, (int)middle);
+                break;
         }
     }
 
@@ -159,7 +201,12 @@ public class TemperatureGraph extends javax.swing.JPanel {
     {
         return Ybottom - yIncrement * temp;
     }
-
+    
+    //Determining y coordinate with a middle
+    public int getYCoordinateWithMiddle(int temp, int yIncrement,int middle)
+    {
+        return (Ybottom - middle) - yIncrement * temp;
+    }
     //Finding the largest value in the array
     public int findLargest(ArrayList<Integer> a)
     {
