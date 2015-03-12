@@ -5,6 +5,8 @@
  */
 package gui;
 
+import java.awt.Color;
+
 /**
  *
  * @author Reetoo
@@ -16,7 +18,8 @@ public class TopBar extends javax.swing.JPanel {
      */
     public TopBar() {
         initComponents();
-        setOpaque(false);
+        setBackground(new Color(0,0,0,150));
+        //setOpaque(false);
         jPanel1.setOpaque(false);
     }
 

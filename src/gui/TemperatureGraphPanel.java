@@ -25,7 +25,7 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
         initTimes();
         initGraph();
         initData();
-       // setBackground(Color.BLACK);
+       setBackground(new Color(116,159,171,150));
       //  setOpaque(false);
     }
     public TemperatureGraph getGraph(){
@@ -33,7 +33,7 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
     }
      @Override
     public boolean isOpaque(){
-        return false;
+        return true;
     }
     public void initGraph(){
         
@@ -47,12 +47,12 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
         temps.add(0);
         temps.add(0);
         temps.add(0);
-        temperatureGraph.setGraph(temps,times,new Dimension(300,300));
+        temperatureGraph.setGraph(temps,times,new Dimension(320,300));
         add(temperatureGraph);
     }
     public void initData(){
         ArrayList<Integer> data = GUIHandler.getTodayTemperatures();
-        temperatureGraph.setGraph(data,times,new Dimension(500,100));
+        temperatureGraph.setGraph(data,times,new Dimension(320,100));
         
     }
     public void initTimes(){

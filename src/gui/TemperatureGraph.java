@@ -3,9 +3,12 @@
  */
 package gui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +24,7 @@ public class TemperatureGraph extends javax.swing.JPanel {
     int Ytop = 20;  
     int Ybottom = 300;
     //These values are defualts
-    public Color graphColor = Color.blue;
+    public Color graphColor = Color.WHITE;
 
     int totalX, totalY;
 
@@ -91,8 +94,8 @@ public class TemperatureGraph extends javax.swing.JPanel {
         }
 
         //Set the initial origin point
-        x1 = (int)getXCoordinate(1, xIncrement);
-        y1 = (int)getYCoordinate(Math.abs(temps.get(0)), yIncrement,smallestNumber);
+        x1 = (int)getXCoordinate(1, 0);
+        y1 = (int)getYCoordinate(Math.abs(temps.get(0)), 0,smallestNumber);
 
         //Compute and plot the data points
         for (i = 0; i < temps.size(); i++)
@@ -103,9 +106,12 @@ public class TemperatureGraph extends javax.swing.JPanel {
             }
             x2 = (int)getXCoordinate(i + 1, xIncrement);
             y2 = (int)getYCoordinate((float)temps.get(i), yIncrement,smallestNumber);
+            g.setFont(new Font("Arial",1,12));
             g.drawString(Integer.toString(temps.get(i)),(int)x2,(int) y2-10);
             g.fillOval(x2, y2, 5, 5);
-            g.drawLine(x1, y1, x2, y2);
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(3));
+            g2.drawLine(x1, y1, x2, y2);
             x1 = x2;
             y1 = y2;
         }

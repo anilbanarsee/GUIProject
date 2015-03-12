@@ -20,7 +20,7 @@ public class FutureWeatherPanel extends javax.swing.JPanel {
         
         initComponents();
        setBackground(new Color(0,0,0,0));
-       // setOpaque(false);
+      // jPanel1.setOpaque(false);
     }
     @Override
     public boolean isOpaque(){
@@ -38,23 +38,33 @@ public class FutureWeatherPanel extends javax.swing.JPanel {
 
         weekWeather1 = new gui.WeekWeather();
         temperatureGraphPanel1 = new gui.TemperatureGraphPanel();
+        currentWeatherPanel1 = new gui.CurrentWeatherPanel();
 
         setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
         gridBagConstraints.weightx = 0.1;
         add(weekWeather1, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.ipady = 100;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
         add(temperatureGraphPanel1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(currentWeatherPanel1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private gui.CurrentWeatherPanel currentWeatherPanel1;
     private gui.TemperatureGraphPanel temperatureGraphPanel1;
     private gui.WeekWeather weekWeather1;
     // End of variables declaration//GEN-END:variables

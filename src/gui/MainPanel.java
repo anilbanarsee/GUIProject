@@ -9,15 +9,21 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 /**
  *
  * @author Reetoo
  */
 public class MainPanel extends javax.swing.JPanel {
+    boolean moving = false;
     int indexSelected = 0;
     int backgroundPosX = 0;
     int backgroundPosY = 0;
+    int x = 0;
+    Timer timer;
     Image img;
     /**
      * Creates new form MainPanel
@@ -29,29 +35,33 @@ public class MainPanel extends javax.swing.JPanel {
     }
     public void swipeLeft(){
            
-indexSelected++;
-        if(indexSelected>2){
-            indexSelected = 0;
+        indexSelected--;
+        if(indexSelected<0){
+            indexSelected = 2;
         }
+         System.out.println("C:"+indexSelected);
         if(indexSelected==0){
+            
             verticalLayoutPanel1.setCurrentWeatherPanel();
-            backgroundPosX = 0;
-            backgroundPosY = 0;
+            moveBackground(0,10000);
+            
             revalidate();
             repaint();
             
         }
         if(indexSelected==1){
+            
+            
+            moveBackground(-320,10000);
             verticalLayoutPanel1.setFutureWeatherPanel();
-            backgroundPosX = -320;
-            backgroundPosY = 0;
+            
+          
             revalidate();
             repaint();
         }
         if(indexSelected==2){
             verticalLayoutPanel1.setTravelPanel();
-            backgroundPosX = -640;
-            backgroundPosY = 0;
+            moveBackground(-640,10000);
            revalidate();
             repaint();
         }
@@ -62,30 +72,87 @@ indexSelected++;
         if(indexSelected>2){
             indexSelected = 0;
         }
+        System.out.println("D:"+indexSelected);
         if(indexSelected==0){
             verticalLayoutPanel1.setCurrentWeatherPanel();
-            backgroundPosX = 0;
-            backgroundPosY = 0;
+             moveBackground(0,10000);
            repaint();
         }
         if(indexSelected==1){
             verticalLayoutPanel1.setFutureWeatherPanel();
-            backgroundPosX = 0;
-            backgroundPosY = 0;
+             moveBackground(-320,10000);
            repaint();
         }
         if(indexSelected==2){
             verticalLayoutPanel1.setTravelPanel();
-                        backgroundPosX = 0;
-            backgroundPosY = 0;
+            moveBackground(-640,10000);
            repaint();
         }
     }
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        System.out.println("Hello");
+        //System.out.println("Hello");
         g.drawImage(img,backgroundPosX,backgroundPosY,null);
+    }
+    public void moveBackground(int n, int time){
+        if(!moving){
+            moving = true;
+       int i = n-backgroundPosX;
+        if(i>0){
+       x = 0;
+       System.out.println("POSITIVE");
+       //System.out.println(backgroundPosX);
+      // System.out.println(backgroundPosY);
+       
+        timer = new Timer(5, new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e){
+                   x++;
+                   if(backgroundPosX + x>n){
+                       backgroundPosX = n;
+                   }
+                   else{
+                       backgroundPosX+=x;
+                   }
+                   repaint();
+                   if(backgroundPosX==n){
+                       timer.stop();
+                       moving=false;
+                   }
+                   
+                }
+            }
+            );
+         timer.setInitialDelay(10);
+            timer.start(); 
+        }
+        if(i<0){
+            System.out.println("NEGATIVE");
+             x = 0;
+            System.out.println(backgroundPosX);
+            System.out.println(backgroundPosY);
+       
+             timer = new Timer(7, new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e){
+                   backgroundPosX-=x;
+                   x++;
+                   if(backgroundPosX-x<n){
+                       x = backgroundPosX-n;
+                   }
+                   if(backgroundPosX==n){
+                       timer.stop();
+                       moving = false;
+                   }
+                   repaint();
+                }
+            }
+            );
+         timer.setInitialDelay(10);
+            timer.start(); 
+        }
+    }
     }
     /**
      * This method is called from within the constructor to initialize the form.

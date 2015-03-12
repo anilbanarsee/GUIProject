@@ -7,6 +7,7 @@ package gui;
 
 import gui.handler.GUIHandler;
 import gui.handler.Util;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +28,8 @@ public class WeekWeather extends javax.swing.JPanel {
         initComponents();
         initiate();
         initWeatherData();
-        setOpaque(false);
+        setBackground(new Color(0,0,0,150));
+        //setOpaque(false);
         
     }
     public void initWeatherData(){
