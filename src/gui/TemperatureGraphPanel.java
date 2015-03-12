@@ -27,7 +27,7 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
         initTimes();
         initGraph();
         initData();
-       setBackground(new Color(116,159,171,150));
+       setBackground(new Color(116,159,171,0));
       //  setOpaque(false);
     }
     public TemperatureGraph getGraph(){
@@ -54,7 +54,8 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 0.1;
         c.weighty = 0.1;
-        c.insets = new Insets(0,0,10,0);
+        c.insets = new Insets(0,0,0,0);
+       // c.anchor = GridBagConstraints.SOUTH;
         add(temperatureGraph,c);
     }
     public void initData(){

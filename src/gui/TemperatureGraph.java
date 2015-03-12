@@ -26,6 +26,8 @@ public class TemperatureGraph extends javax.swing.JPanel {
     int Ybottom = 300;
     //These values are defualts
     public Color graphColor = Color.WHITE;
+    public Color underGraphColor = new Color(255,0,0,150);
+    public Color overGraphColor = new Color(0,0,255,150);
 
     int totalX, totalY;
 
@@ -67,9 +69,6 @@ public class TemperatureGraph extends javax.swing.JPanel {
     //Draw the line graph
     public void drawLineGraph(Graphics g)
     {
-
-
-        drawAxes(g);
         drawNormalGraph(g);
     }
     
@@ -93,7 +92,36 @@ public class TemperatureGraph extends javax.swing.JPanel {
         {
             yIncrement = totalY / (largestNumber-smallestNumber);
         }
+        
+        //Set the initial origin point
+        x1 = (int)getXCoordinate(1, 0);
+        y1 = (int)getYCoordinate(Math.abs(temps.get(0)), 0,smallestNumber);
+        
+        for (i = 0; i < temps.size(); i++)
+        {
+            if (temps.get(i) == null)
+            {
+                continue;
+            }
+            x2 = (int)getXCoordinate(i + 1, xIncrement);
+            y2 = (int)getYCoordinate((float)temps.get(i), yIncrement,smallestNumber);
+           
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setColor(underGraphColor);
+            int[] belowX = {x1+1,x2,x2,x1};
+            int[] belowY = {y1,y2,Ybottom+20,Ybottom+20};
+            g2.fillPolygon(belowX, belowY, 4);
+            
+            
+            g2.setColor(overGraphColor);
+            int[] aboveX = {x1+1,x2,x2,x1};
+            int[] aboveY = {y1,y2,Ytop-20,Ytop-20};
+            g2.fillPolygon(aboveX, aboveY, 4);
 
+            x1 = x2;
+            y1 = y2;
+        }
+        
         //Set the initial origin point
         x1 = (int)getXCoordinate(1, 0);
         y1 = (int)getYCoordinate(Math.abs(temps.get(0)), 0,smallestNumber);
@@ -110,23 +138,16 @@ public class TemperatureGraph extends javax.swing.JPanel {
            
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(new BasicStroke(3));
-              g2.setColor(graphColor);
+            g2.setColor(graphColor);
             g2.drawLine(x1, y1, x2, y2);
             
-               g2.setColor(GUIHandler.getColorForTemp(temps.get(i)));
+            g2.setColor(GUIHandler.getColorForTemp(temps.get(i)));
             g2.setFont(new Font("Arial",1,12));
             g2.drawString(Integer.toString(temps.get(i)),(int)x2-7,(int) y2-10);
            // g2.fillOval(x2, y2, 5, 5);
             x1 = x2;
             y1 = y2;
         }
-    }
-    
-    
-    public void drawAxes(Graphics g)
-    {
-        //Just draw positive axes
-        //g.drawLine(Xleft, Ybottom, Xright, Ybottom);   
     }
 
     //Determining x coordinate
