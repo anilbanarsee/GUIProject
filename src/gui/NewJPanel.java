@@ -7,20 +7,17 @@ package gui;
 
 /**
  *
- * @author Reetoo
+ * @author User
  */
-public class TravelPanel extends javax.swing.JPanel {
+public class NewJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form TravelPanel
+     * Creates new form NewJPanel
      */
-    public TravelPanel() {
+    public NewJPanel() {
         initComponents();
     }
-     @Override
-    public boolean isOpaque(){
-        return false;
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,14 +27,19 @@ public class TravelPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        trainStatusPanel1 = new gui.TrainStatusPanel();
-
-        setLayout(new java.awt.GridLayout());
-        add(trainStatusPanel1);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.TrainStatusPanel trainStatusPanel1;
     // End of variables declaration//GEN-END:variables
 }
