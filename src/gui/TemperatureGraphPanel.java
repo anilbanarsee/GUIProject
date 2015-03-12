@@ -8,6 +8,8 @@ package gui;
 import gui.handler.GUIHandler;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.util.ArrayList;
 
 /**
@@ -48,7 +50,12 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
         temps.add(0);
         temps.add(0);
         temperatureGraph.setGraph(temps,times,new Dimension(320,300));
-        add(temperatureGraph);
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 0.1;
+        c.weighty = 0.1;
+        c.insets = new Insets(0,0,10,0);
+        add(temperatureGraph,c);
     }
     public void initData(){
         ArrayList<Integer> data = GUIHandler.getTodayTemperatures();
@@ -76,7 +83,7 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setLayout(new java.awt.GridLayout(1, 0));
+        setLayout(new java.awt.GridBagLayout());
     }// </editor-fold>//GEN-END:initComponents
 
 

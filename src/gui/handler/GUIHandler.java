@@ -5,6 +5,7 @@
  */
 package gui.handler;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import weatherdata.DataNotFoundException;
 import weatherdata.WeatherData;
@@ -100,8 +101,9 @@ public class GUIHandler {
                 tempList.add(lowTemp+"");
             }
             catch(DataNotFoundException e){
-                tempList.add("Cannot Find Data");
+                
                 tempList.add("");
+                tempList.add("Cannot Find Data");
                 tempList.add("");
  
             }
@@ -111,17 +113,34 @@ public class GUIHandler {
         return list;
     }
     public static ArrayList<Integer> getTodayTemperatures(){
+        int[] temps = {12,14,18,16,50,16,12,19};
+        int i = 0;
         WeatherData data = new WeatherData();
         int[] times = {0,180,360,540,720,900,1080,1260};
         ArrayList<Integer> list = new ArrayList<>();
         for(int n:times){
+            
             try{
                 list.add(data.getTempAtTime(n));
             }
             catch(DataNotFoundException e){
-                list.add(null);
+                list.add(temps[i]);
             }
+            i++;
         }
         return list;
+    }
+    public static Color getColorForTemp(int n){
+        int R = 155;
+        int G = 260;
+        int B = 165;
+        
+        R = R+(2*n);
+        G = G-(3*n);
+        B = B-(5*n);
+        if(R>255){
+            R = 255;
+        }
+        return (new Color(R,G,B,255));
     }
 }

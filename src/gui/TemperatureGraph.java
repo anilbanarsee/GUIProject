@@ -3,6 +3,7 @@
  */
 package gui;
 
+import gui.handler.GUIHandler;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,9 +20,9 @@ public class TemperatureGraph extends javax.swing.JPanel {
 
     //Establish variables for this program
 
-    int Xleft = 25;
+    int Xleft = 0;
     int Xright = 300;
-    int Ytop = 20;  
+    int Ytop = 30;  
     int Ybottom = 300;
     //These values are defualts
     public Color graphColor = Color.WHITE;
@@ -45,8 +46,8 @@ public class TemperatureGraph extends javax.swing.JPanel {
     {
         this.temps = temps;
         this.tempsTimes = tempsTimes;
-        Xright = d.width-25;
-        Ybottom = d.height-20;
+        Xright = d.width-0;
+        Ybottom = d.height-10;
         //Give some breathing room at bottom and right
         totalX = Xright - Xleft;
         totalY = Ybottom - Ytop;
@@ -106,12 +107,16 @@ public class TemperatureGraph extends javax.swing.JPanel {
             }
             x2 = (int)getXCoordinate(i + 1, xIncrement);
             y2 = (int)getYCoordinate((float)temps.get(i), yIncrement,smallestNumber);
-            g.setFont(new Font("Arial",1,12));
-            g.drawString(Integer.toString(temps.get(i)),(int)x2,(int) y2-10);
-            g.fillOval(x2, y2, 5, 5);
+           
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(new BasicStroke(3));
+              g2.setColor(graphColor);
             g2.drawLine(x1, y1, x2, y2);
+            
+               g2.setColor(GUIHandler.getColorForTemp(temps.get(i)));
+            g2.setFont(new Font("Arial",1,12));
+            g2.drawString(Integer.toString(temps.get(i)),(int)x2-7,(int) y2-10);
+           // g2.fillOval(x2, y2, 5, 5);
             x1 = x2;
             y1 = y2;
         }

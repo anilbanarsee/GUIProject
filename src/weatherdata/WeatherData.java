@@ -25,6 +25,7 @@ public class WeatherData implements WeatherDataInterface
     String apiKey = "e8301ece-ac18-4968-9199-6f245e616e4e";
     Document docDaily;
     Document docHourly;
+    boolean init = false;
     
     public WeatherData()
     {
@@ -39,10 +40,11 @@ public class WeatherData implements WeatherDataInterface
             docDaily.getDocumentElement().normalize();
             docHourly = dBuilder.parse(weatherDataHourly.openConnection().getInputStream());
             docHourly.getDocumentElement().normalize();
+            init = true;
         } 
         catch (SAXException | IOException | ParserConfigurationException ex) 
         {
-            Logger.getLogger(WeatherData.class.getName()).log(Level.SEVERE, null, ex);
+           // Logger.getLogger(WeatherData.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -50,6 +52,9 @@ public class WeatherData implements WeatherDataInterface
     @Override
     public int getCurrentWeather() throws DataNotFoundException
     {
+        if(!init){
+            throw new DataNotFoundException();
+        }
         NodeList nList = docHourly.getElementsByTagName("Rep");
         if(nList!=null && nList.getLength() > 0)
         {
@@ -65,6 +70,9 @@ public class WeatherData implements WeatherDataInterface
     @Override
     public int getWeatherAtTime(int time) throws DataNotFoundException
     {
+         if(!init){
+            throw new DataNotFoundException();
+         }
         NodeList nList = docHourly.getElementsByTagName("Rep");
         if(nList!=null && nList.getLength() > 0)
         {
@@ -86,6 +94,9 @@ public class WeatherData implements WeatherDataInterface
     @Override
     public int getTempAtTime(int time) throws DataNotFoundException
     {
+          if(!init){
+            throw new DataNotFoundException();
+         }
         NodeList nList = docHourly.getElementsByTagName("Rep");
         if(nList!=null && nList.getLength() > 0)
         {
@@ -107,6 +118,9 @@ public class WeatherData implements WeatherDataInterface
     @Override
     public int getCurrentWindSpeed() throws DataNotFoundException
     {
+          if(!init){
+            throw new DataNotFoundException();
+         }
         NodeList nList = docHourly.getElementsByTagName("Rep");
         if(nList!=null && nList.getLength() > 0)
         {
@@ -122,6 +136,9 @@ public class WeatherData implements WeatherDataInterface
     @Override
     public String getCurrentWindDirection() throws DataNotFoundException
     {
+          if(!init){
+            throw new DataNotFoundException();
+         }
         NodeList nList = docHourly.getElementsByTagName("Rep");
         if(nList!=null && nList.getLength() > 0)
         {
@@ -136,6 +153,9 @@ public class WeatherData implements WeatherDataInterface
     @Override
     public int getCurrentHumidity() throws DataNotFoundException
     {
+          if(!init){
+            throw new DataNotFoundException();
+         }
         NodeList nList = docHourly.getElementsByTagName("Rep");
         if(nList!=null && nList.getLength() > 0)
         {
@@ -150,7 +170,10 @@ public class WeatherData implements WeatherDataInterface
 
     @Override
     public int getWeatherAtDay(int day) throws DataNotFoundException
-    {        
+    {     
+          if(!init){
+            throw new DataNotFoundException();
+         }
         NodeList nList = docDaily.getElementsByTagName("Period");
         if(nList!=null && nList.getLength() > 0)
         {
@@ -166,6 +189,9 @@ public class WeatherData implements WeatherDataInterface
     @Override
     public int getHighTempAtDay(int day) throws DataNotFoundException
     {
+          if(!init){
+            throw new DataNotFoundException();
+         }
         NodeList nList = docDaily.getElementsByTagName("Period");
         if(nList!=null && nList.getLength() > 0)
         {
@@ -181,6 +207,9 @@ public class WeatherData implements WeatherDataInterface
     @Override
     public int getLowTempAtDay(int day) throws DataNotFoundException
     {
+          if(!init){
+            throw new DataNotFoundException();
+         }
         NodeList nList = docDaily.getElementsByTagName("Period");
         if(nList!=null && nList.getLength() > 0)
         {
@@ -196,6 +225,9 @@ public class WeatherData implements WeatherDataInterface
     @Override
     public int getAverageTempAtDay(int day) throws DataNotFoundException
     {
+          if(!init){
+            throw new DataNotFoundException();
+         }
         try
         {
             return (getHighTempAtDay(day)+getLowTempAtDay(day))/2;
