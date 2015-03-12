@@ -108,13 +108,13 @@ public class TemperatureGraph extends javax.swing.JPanel {
            
             Graphics2D g2 = (Graphics2D) g;
             g2.setColor(underGraphColor);
-            int[] belowX = {x1+1,x2,x2,x1};
+            int[] belowX = {x1,x2,x2,x1};
             int[] belowY = {y1,y2,Ybottom+20,Ybottom+20};
             g2.fillPolygon(belowX, belowY, 4);
             
             
             g2.setColor(overGraphColor);
-            int[] aboveX = {x1+1,x2,x2,x1};
+            int[] aboveX = {x1,x2,x2,x1};
             int[] aboveY = {y1,y2,Ytop-20,Ytop-20};
             g2.fillPolygon(aboveX, aboveY, 4);
 
