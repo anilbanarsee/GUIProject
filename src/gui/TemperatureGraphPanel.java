@@ -6,6 +6,7 @@
 package gui;
 
 import gui.handler.GUIHandler;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
@@ -24,10 +25,15 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
         initTimes();
         initGraph();
         initData();
-        setOpaque(false);
+       // setBackground(Color.BLACK);
+      //  setOpaque(false);
     }
     public TemperatureGraph getGraph(){
         return temperatureGraph;
+    }
+     @Override
+    public boolean isOpaque(){
+        return false;
     }
     public void initGraph(){
         
@@ -46,7 +52,7 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
     }
     public void initData(){
         ArrayList<Integer> data = GUIHandler.getTodayTemperatures();
-        temperatureGraph.setGraph(data,times,new Dimension(300,300));
+        temperatureGraph.setGraph(data,times,new Dimension(500,100));
         
     }
     public void initTimes(){

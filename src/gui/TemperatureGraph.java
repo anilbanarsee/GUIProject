@@ -1,7 +1,7 @@
 /**
  * A simple temperature graph to show 9 temperatures
  */
-package weatherapp;
+package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,9 +31,13 @@ public class TemperatureGraph extends javax.swing.JPanel {
 
     public TemperatureGraph()
     {
-        setOpaque(false);
+        setBackground(Color.BLACK);
+        
     }
-
+     @Override
+    public boolean isOpaque(){
+        return false;
+    }
     public void setGraph(ArrayList<Integer> temps,ArrayList<String> tempsTimes,Dimension d)
     {
         this.temps = temps;

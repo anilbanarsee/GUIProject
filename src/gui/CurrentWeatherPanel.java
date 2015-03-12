@@ -33,7 +33,12 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
        
        initalize();
       
-       setOpaque(false);
+     //  setOpaque(false);
+       //jPanel1.setBackground(Color.WHITE);
+    }
+     @Override
+    public boolean isOpaque(){
+        return false;
     }
     public void initalize(){
         Font smallIcon = Util.getWeatherFont(25);
@@ -86,12 +91,13 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         //setColor(new Color(255,255,255,100));
         jPanel1.setOpaque(false);
         jPanel2.setOpaque(false);
+        setOpaque(false);
        
         
     }
     public void setColor(Color c){
         System.out.println("ALERT");
-        setBackground(c);
+        //setBackground(c);
     }
    
     @SuppressWarnings("unchecked")
@@ -267,14 +273,6 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         G2D.drawImage(img,0,0,null);
         G2D.dispose();
         return tempImage;
-    }
-     @Override
-    protected void paintComponent(Graphics g){
-        
-        super.paintComponent(g);
-        initBackground();
-    //    initBackground();
-        g.drawImage(image,0,0,null);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel degreeSymbol;

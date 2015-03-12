@@ -5,6 +5,8 @@
  */
 package gui;
 
+import java.awt.Color;
+
 /**
  *
  * @author Reetoo
@@ -17,9 +19,13 @@ public class FutureWeatherPanel extends javax.swing.JPanel {
     public FutureWeatherPanel() {
         
         initComponents();
-        setOpaque(false);
+       setBackground(new Color(0,0,0,0));
+       // setOpaque(false);
     }
-    
+    @Override
+    public boolean isOpaque(){
+        return false;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

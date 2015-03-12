@@ -16,29 +16,44 @@ import java.awt.Toolkit;
  */
 public class MainPanel extends javax.swing.JPanel {
     int indexSelected = 0;
+    int backgroundPosX = 0;
+    int backgroundPosY = 0;
     Image img;
     /**
      * Creates new form MainPanel
      */
     public MainPanel() {
-         img = Toolkit.getDefaultToolkit().createImage("assets//background.jpg");
+         img = Toolkit.getDefaultToolkit().createImage("assets//total.jpg");
         initComponents();
-        this.setBackground(Color.BLACK);
+       // this.setBackground(Color.BLACK);
     }
     public void swipeLeft(){
            
-        indexSelected--;
-        if(indexSelected<0){
-            indexSelected = 2;
+indexSelected++;
+        if(indexSelected>2){
+            indexSelected = 0;
         }
         if(indexSelected==0){
             verticalLayoutPanel1.setCurrentWeatherPanel();
+            backgroundPosX = 0;
+            backgroundPosY = 0;
+            revalidate();
+            repaint();
+            
         }
         if(indexSelected==1){
             verticalLayoutPanel1.setFutureWeatherPanel();
+            backgroundPosX = -320;
+            backgroundPosY = 0;
+            revalidate();
+            repaint();
         }
         if(indexSelected==2){
             verticalLayoutPanel1.setTravelPanel();
+            backgroundPosX = -640;
+            backgroundPosY = 0;
+           revalidate();
+            repaint();
         }
     }
     public void swipeRight(){
@@ -49,18 +64,28 @@ public class MainPanel extends javax.swing.JPanel {
         }
         if(indexSelected==0){
             verticalLayoutPanel1.setCurrentWeatherPanel();
+            backgroundPosX = 0;
+            backgroundPosY = 0;
+           repaint();
         }
         if(indexSelected==1){
             verticalLayoutPanel1.setFutureWeatherPanel();
+            backgroundPosX = 0;
+            backgroundPosY = 0;
+           repaint();
         }
         if(indexSelected==2){
             verticalLayoutPanel1.setTravelPanel();
+                        backgroundPosX = 0;
+            backgroundPosY = 0;
+           repaint();
         }
     }
     @Override
     public void paintComponent(Graphics g){
-       
-        g.drawImage(img,0,0,null);
+        super.paintComponent(g);
+        System.out.println("Hello");
+        g.drawImage(img,backgroundPosX,backgroundPosY,null);
     }
     /**
      * This method is called from within the constructor to initialize the form.

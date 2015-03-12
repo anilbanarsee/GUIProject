@@ -5,34 +5,57 @@
  */
 package gui;
 
+import java.awt.Color;
+
 /**
  *
  * @author Reetoo
  */
 public class VerticalLayoutPanel extends javax.swing.JPanel {
     int indexSelected = 0;
+    CurrentWeatherPanel current;
+    FutureWeatherPanel future;
+    TravelPanel travel;
     /**
      * Creates new form VerticalLayoutPanel
      */
     public VerticalLayoutPanel() {
+        System.out.println("1232323");
         initComponents();
+        initalize();
         setOpaque(false);
+        
+    }
+    public void initalize(){
+        current = new CurrentWeatherPanel();
+        //current.setBackground(Color.WHITE);
+       // current.setOpaque(false);
+        
+        future = new FutureWeatherPanel();
+     //   future.setBackground(Color.WHITE);
+       // future.setOpaque(false);
+        
+        travel = new TravelPanel();
+        add(current);
     }
     public void setCurrentWeatherPanel(){
         removeAll();
-        add(new CurrentWeatherPanel());
+       // revalidate();
+        add(current);
         revalidate();
         repaint();
     }
     public void setFutureWeatherPanel(){
         removeAll();
-        add(new FutureWeatherPanel());
+      //  revalidate();
+        add(future);
         revalidate();
         repaint();
     }
-        public void setTravelPanel(){
+    public void setTravelPanel(){
         removeAll();
-        add(new TravelPanel());
+       // revalidate();
+        add(travel);
         revalidate();
         repaint();
     }
@@ -46,8 +69,6 @@ public class VerticalLayoutPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        futureWeatherPanel1 = new gui.FutureWeatherPanel();
-
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -59,31 +80,11 @@ public class VerticalLayoutPanel extends javax.swing.JPanel {
             }
         });
         setLayout(new java.awt.GridLayout());
-
-        futureWeatherPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                futureWeatherPanel1MouseClicked(evt);
-            }
-        });
-        futureWeatherPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                futureWeatherPanel1KeyPressed(evt);
-            }
-        });
-        add(futureWeatherPanel1);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
                
     }//GEN-LAST:event_formMouseClicked
-
-    private void futureWeatherPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_futureWeatherPanel1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_futureWeatherPanel1MouseClicked
-
-    private void futureWeatherPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_futureWeatherPanel1KeyPressed
-
-    }//GEN-LAST:event_futureWeatherPanel1KeyPressed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
    
@@ -91,6 +92,5 @@ public class VerticalLayoutPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.FutureWeatherPanel futureWeatherPanel1;
     // End of variables declaration//GEN-END:variables
 }
