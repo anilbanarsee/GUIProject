@@ -38,7 +38,6 @@ public class TrainStatusPanel extends javax.swing.JPanel {
         metropolitanLine = new gui.LineStatusBar();
         jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 0, 0));
         setLayout(new java.awt.GridBagLayout());
 
         jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Documents\\NetBeansProjects\\GUIProject\\assets\\optionButton.png")); // NOI18N
