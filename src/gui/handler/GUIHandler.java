@@ -113,7 +113,7 @@ public class GUIHandler {
         return list;
     }
     public static ArrayList<Integer> getTodayTemperatures(){
-        int[] temps = {12,14,18,16,50,16,12,19};
+        int[] temps = {12,14,18,16,40,16,12,19};
         int i = 0;
         WeatherData data = new WeatherData();
         int[] times = {0,180,360,540,720,900,1080,1260};
@@ -131,16 +131,33 @@ public class GUIHandler {
         return list;
     }
     public static Color getColorForTemp(int n){
-        int R = 155;
-        int G = 260;
-        int B = 165;
+        int R = 0;
+        int G = 240;
+        int B = 0;
         
-        R = R+(2*n);
-        G = G-(3*n);
-        B = B-(5*n);
-        if(R>255){
-            R = 255;
+        int rIncr = 6;
+        int gIncr = -6;
+        int range = 40;
+        
+        int halfRange = range/2;
+        
+        int upper;
+        int lower;
+        
+        if(n>halfRange){
+            lower = halfRange;
+            upper = n-lower;
         }
-        return (new Color(R,G,B,255));
+        else{
+            lower = n;
+            upper = 0;
+        }
+        
+        R = R + lower*10;
+        G = G - upper*10;
+        System.out.println("R:"+R);
+        System.out.println("G:"+G);
+        System.out.println("B:"+B);
+        return new Color(R,G,B);
     }
 }
