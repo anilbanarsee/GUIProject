@@ -17,6 +17,7 @@ import javax.swing.Timer;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -41,11 +42,19 @@ public class MainPanel extends javax.swing.JPanel {
      * Creates new form MainPanel
      */
     public MainPanel() {
-        
-         img = Toolkit.getDefaultToolkit().createImage("assets//total.jpg");
+         img = chooseRandomBackground();
         initComponents();
        // this.setBackground(Color.BLACK);
     }
+    
+    private Image chooseRandomBackground()
+    {
+        Random rand = new Random();
+        int backgroundNo = rand.nextInt(3);
+        System.out.println(backgroundNo);
+        return Toolkit.getDefaultToolkit().createImage("assets//background" +Integer.toString(backgroundNo+1)+".jpg");
+    }
+    
     public void switchToPortrait(){
         if(portrait){
             return;           
