@@ -9,6 +9,21 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Action;
 import javax.swing.JLabel;
 import javax.swing.KeyStroke;
@@ -44,6 +59,7 @@ public class MainGUI extends javax.swing.JFrame{
         add(companyName);
  //jLabel1.setForeground(new Color(0,0,0,0));
         alpha = 0;
+        playSound();
        timer = new Timer(35, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -77,6 +93,18 @@ public class MainGUI extends javax.swing.JFrame{
         timer2.setInitialDelay(1500);
         timer2.setRepeats(false);
         timer2.start();
+    }
+    public void playSound(){
+        JFXPanel fxPanel = new JFXPanel();
+        URL resource = null;
+        try {
+            resource = new File("assets//start_up.mp3").toURI().toURL();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        final Media media = new Media(resource.toString());
+         final MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
     }
     public void switchToLandscape(){
         setSize(480,320);
