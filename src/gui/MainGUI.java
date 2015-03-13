@@ -36,17 +36,19 @@ import javax.swing.Timer;
 public class MainGUI extends javax.swing.JFrame{
     int indexSelected = 0;
     JLabel companyName;
+    boolean fadein = true;
     int alpha;
     Timer timer;
     Timer timer2;
     BufferedImage img;
-    float opacity = 0.5f;
+    float opacity = 0.0f;
     boolean start = true;
     /**
      * Creates new form MainGUI
      */
     public MainGUI() throws IOException{
         img = ImageIO.read(new File("assets//logo.png"));
+        setBackground(new Color(255,255,255,255));
         startUp();
         
         //initComponents();
@@ -56,12 +58,14 @@ public class MainGUI extends javax.swing.JFrame{
     }
     @Override
     public void paint(Graphics g){
+        if(!start){
         super.paintComponents(g);
+        }
         if(start){
             //System.out.println("Hello");
         Graphics2D g2 = (Graphics2D) g;
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-        g2.drawImage(img,0,0,null);
+        g2.drawImage(img,27,107,null);
         //g2.dispose();
         }
     }
@@ -78,23 +82,25 @@ public class MainGUI extends javax.swing.JFrame{
  //jLabel1.setForeground(new Color(0,0,0,0));
         alpha = 0;
         playSound();
-       timer = new Timer(35, new ActionListener(){
+       timer = new Timer(50, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-               alpha += 5;
-               opacity += 0.05f;
+               //alpha += 5;
+               if(fadein){
+                   opacity += 0.005f;
+               }
+               
                if(opacity>1.0f){
                    opacity = 1.0f;
+                   timer.stop();
                }
+               
+               System.out.println(opacity);
                //System.out.println(alpha);
-               companyName.setForeground(new Color(0,0,0,alpha));
+               //companyName.setForeground(new Color(0,0,0,alpha));
                
                repaint();
-                    if(alpha==255){
-                        start =false;
-                    timer.stop();
-                    
-                    }
+                  
                     
                 
                 
@@ -114,7 +120,7 @@ public class MainGUI extends javax.swing.JFrame{
                 repaint();
             }
         });
-        timer2.setInitialDelay(1500);
+        timer2.setInitialDelay(3000);
         timer2.setRepeats(false);
         timer2.start();
     }
