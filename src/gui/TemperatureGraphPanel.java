@@ -34,9 +34,9 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
     public TemperatureGraph getGraph(){
         return temperatureGraph;
     }
-    public void resizeGraph(){
-      
-      temperatureGraph.setGraph(data,times,new Dimension(getWidth(),100));
+    public void resizeGraph(Dimension d){
+      System.out.println(getWidth());
+      temperatureGraph.setGraph(data,times,d);
       
     }
      @Override
