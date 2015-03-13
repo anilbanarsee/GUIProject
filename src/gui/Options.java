@@ -5,6 +5,8 @@
  */
 package gui;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,11 +40,29 @@ public class Options extends javax.swing.JPanel {
         celsiusRadio = new javax.swing.JRadioButton();
         buttonGroup1.add(celsiusRadio);
         fahrenheitRadio = new javax.swing.JRadioButton();
-        buttonGroup1.add(fahrenheitRadio);
+        buttonGroup1.add(fahrenheitRadio); 
+        try {
+            BufferedReader in = new BufferedReader(new FileReader("properties.txt"));
+            String unit = in.readLine();
+            if (unit.equals("C")) {
+                celsiusRadio.setSelected(true);
+            }
+            else if (unit.equals("F")) {
+                fahrenheitRadio.setSelected(true);
+            }
+            else {
+                //do nothing
+            }
+            in.close();
+        }
+        catch (IOException ex) {
+            System.out.println("FILE MISSING!");
+        }
         saveButton = new javax.swing.JButton();
 
         setLayout(new java.awt.GridBagLayout());
 
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jLabel1.setText("Temperature Unit:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -50,6 +70,7 @@ public class Options extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 15);
         add(jLabel1, gridBagConstraints);
 
+        celsiusRadio.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         celsiusRadio.setText("Celsius");
         celsiusRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,6 +83,7 @@ public class Options extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         add(celsiusRadio, gridBagConstraints);
 
+        fahrenheitRadio.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         fahrenheitRadio.setText("Fahrenheit");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -69,6 +91,7 @@ public class Options extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         add(fahrenheitRadio, gridBagConstraints);
 
+        saveButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         saveButton.setText("Save & Close");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,6 +122,12 @@ public class Options extends javax.swing.JPanel {
             catch (IOException ex) {
                 System.out.println("FILE MISSING!");
             }
+        }
+        else if (evt.getSource() == celsiusRadio) {
+            fahrenheitRadio.setSelected(false);
+        }
+        else if (evt.getSource() == fahrenheitRadio) {
+            celsiusRadio.setSelected(false);
         }
         else {
             //do nothing
