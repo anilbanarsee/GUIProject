@@ -5,13 +5,21 @@
  */
 package gui;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -19,17 +27,21 @@ import javax.swing.Timer;
  */
 public class MainPanel extends javax.swing.JPanel {
     boolean moving = false;
+    boolean start = false;
     int indexSelected = 0;
     int backgroundPosX = 0;
     int backgroundPosY = 0;
     boolean portrait = true;
+    float opacity = 0.5f;
     int x = 0;
+    BufferedImage logo;
     Timer timer;
     Image img;
     /**
      * Creates new form MainPanel
      */
     public MainPanel() {
+        
          img = Toolkit.getDefaultToolkit().createImage("assets//total.jpg");
         initComponents();
        // this.setBackground(Color.BLACK);
@@ -109,9 +121,13 @@ public class MainPanel extends javax.swing.JPanel {
     }
     @Override
     public void paintComponent(Graphics g){
+        
         super.paintComponent(g);
+        
         //System.out.println("Hello");
         g.drawImage(img,backgroundPosX,backgroundPosY,null);
+        
+        
     }
     public void moveBackground(int n, int time){
         if(!moving){

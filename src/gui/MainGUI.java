@@ -5,28 +5,28 @@
  */
 package gui;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.Action;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
 /**
@@ -39,10 +39,14 @@ public class MainGUI extends javax.swing.JFrame{
     int alpha;
     Timer timer;
     Timer timer2;
+    BufferedImage img;
+    float opacity = 0.5f;
+    boolean start = true;
     /**
      * Creates new form MainGUI
      */
-    public MainGUI() {
+    public MainGUI() throws IOException{
+        img = ImageIO.read(new File("assets//logo.png"));
         startUp();
         
         //initComponents();
@@ -50,11 +54,25 @@ public class MainGUI extends javax.swing.JFrame{
         createControlPanel();
         
     }
+    @Override
+    public void paint(Graphics g){
+        super.paintComponents(g);
+        if(start){
+            //System.out.println("Hello");
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+        g2.drawImage(img,0,0,null);
+        //g2.dispose();
+        }
+    }
+   
+
     public void startUp(){
         setSize(320,480);
         
         companyName = new JLabel();
         companyName.setText("TEMPEST");
+        companyName.setIcon(new ImageIcon(img));
         companyName.setFont(new Font("Arial",1,18));
         add(companyName);
  //jLabel1.setForeground(new Color(0,0,0,0));
@@ -64,11 +82,16 @@ public class MainGUI extends javax.swing.JFrame{
             @Override
             public void actionPerformed(ActionEvent e){
                alpha += 5;
+               opacity += 0.05f;
+               if(opacity>1.0f){
+                   opacity = 1.0f;
+               }
                //System.out.println(alpha);
                companyName.setForeground(new Color(0,0,0,alpha));
                
                repaint();
                     if(alpha==255){
+                        start =false;
                     timer.stop();
                     
                     }
@@ -83,6 +106,7 @@ public class MainGUI extends javax.swing.JFrame{
         timer2 = new Timer(50, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                start = false;
                 remove(companyName);
                 initComponents();
                 
@@ -184,7 +208,11 @@ public class MainGUI extends javax.swing.JFrame{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainGUI().setVisible(true);
+                try {
+                    new MainGUI().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
