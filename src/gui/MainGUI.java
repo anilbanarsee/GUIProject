@@ -6,8 +6,13 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.Action;
+import javax.swing.JLabel;
 import javax.swing.KeyStroke;
+import javax.swing.Timer;
 
 /**
  *
@@ -15,15 +20,71 @@ import javax.swing.KeyStroke;
  */
 public class MainGUI extends javax.swing.JFrame{
     int indexSelected = 0;
-    
+    JLabel companyName;
+    int alpha;
+    Timer timer;
+    Timer timer2;
     /**
      * Creates new form MainGUI
      */
     public MainGUI() {
-        initComponents();
+        startUp();
+        
+        //initComponents();
         setColour(new Color(0,51,204));
         createControlPanel();
         
+    }
+    public void startUp(){
+        setSize(320,480);
+        
+        companyName = new JLabel();
+        companyName.setText("TEMPEST");
+        companyName.setFont(new Font("Arial",1,18));
+        add(companyName);
+ //jLabel1.setForeground(new Color(0,0,0,0));
+        alpha = 0;
+       timer = new Timer(35, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+               alpha += 5;
+               //System.out.println(alpha);
+               companyName.setForeground(new Color(0,0,0,alpha));
+               
+               repaint();
+                    if(alpha==255){
+                    timer.stop();
+                    
+                    }
+                    
+                
+                
+            }
+        }
+        );
+         timer.setInitialDelay(10);
+            timer.start(); 
+        timer2 = new Timer(50, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                remove(companyName);
+                initComponents();
+                
+                setSize(320,480);
+                repaint();
+            }
+        });
+        timer2.setInitialDelay(1500);
+        timer2.setRepeats(false);
+        timer2.start();
+    }
+    public void switchToLandscape(){
+        setSize(480,320);
+        mainPanel1.switchToLandscape();
+    }
+    public void switchToPortrait(){
+        setSize(320,480);
+        mainPanel1.switchToPortrait();
     }
     public void createControlPanel(){
         ControlPanel a = new ControlPanel(this);

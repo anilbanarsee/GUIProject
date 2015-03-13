@@ -5,17 +5,84 @@
  */
 package gui;
 
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+
 /**
  *
  * @author Reetoo
  */
 public class TravelPanel extends javax.swing.JPanel {
 
+    TrainStatusPanel status;
+    CurrentWeatherPanel current;
     /**
      * Creates new form TravelPanel
      */
     public TravelPanel() {
         initComponents();
+        initalize();
+    }
+    public void setLandscape(){
+        removeAll();
+        GridBagConstraints c = new  GridBagConstraints();
+        c.fill =  GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 1;
+        c.gridx = 1;
+        c.gridy = 0;
+        c.insets = new Insets(10,10,10,10);
+        add(status,c);
+        
+        c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 0;
+        c.weighty = 1;
+        c.gridx=0;
+        c.gridy=0;
+        add(current,c);
+        revalidate();
+        repaint();
+    }
+    public void setPortrait(){
+        removeAll();
+         GridBagConstraints c = new  GridBagConstraints();
+        c.fill =  GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 0;
+        c.gridx = 0;
+        c.gridy = 1;
+        c.insets = new Insets(10,10,10,10);
+        add(status,c);
+        
+        c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 1;
+        
+        add(current,c);
+    }
+    public void initalize(){
+        status = new TrainStatusPanel();
+        current = new CurrentWeatherPanel();
+        
+        
+        
+        GridBagConstraints c = new  GridBagConstraints();
+        c.fill =  GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 0;
+        c.gridx = 0;
+        c.gridy = 1;
+        c.insets = new Insets(10,10,10,10);
+        add(status,c);
+        
+        c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 1;
+        
+        add(current,c);
     }
      @Override
     public boolean isOpaque(){
@@ -30,14 +97,10 @@ public class TravelPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        trainStatusPanel1 = new gui.TrainStatusPanel();
-
-        setLayout(new java.awt.GridLayout());
-        add(trainStatusPanel1);
+        setLayout(new java.awt.GridBagLayout());
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.TrainStatusPanel trainStatusPanel1;
     // End of variables declaration//GEN-END:variables
 }

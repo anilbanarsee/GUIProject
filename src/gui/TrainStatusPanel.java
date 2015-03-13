@@ -5,19 +5,153 @@
  */
 package gui;
 
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+
 /**
  *
  * @author User
  */
 public class TrainStatusPanel extends javax.swing.JPanel {
-
+    ArrayList<String> lineNames;
+    ArrayList<Integer> lineNum;
+    ArrayList<Color> lineColor;
+    ArrayList<LineStatusBar> lineBars;
+    
+    
     /**
      * Creates new form TrainStatusPanel
      */
     public TrainStatusPanel() {
         initComponents();
+        setLayout(new GridLayout(0,1));
+        initInfo();
+        initLineBars();
+        addBars();
+        
+       // writeSelectedLines();
     }
+    public void addBars(){
+        ArrayList<Integer> selected = getSelectedLines();
+        for(int i=0; i<lineBars.size(); i++){
+            if(selected.contains(i)){
+                add(lineBars.get(i));
+            }
+        }
+    }
+    public void initLineBars(){
+        lineBars = new ArrayList<>();
+        LineStatusBar line = null;
+        for(int i=0; i<lineNames.size(); i++){
+            line = new LineStatusBar();
+            line.setText(lineNames.get(i));
+            line.setColour(lineColor.get(i));
+            lineBars.add(line);
+        }
+    }
+    public void initInfo(){
+        lineNames = new ArrayList<>();
+        lineColor = new ArrayList<>();
+        lineNum = new ArrayList<>();
+        
+        lineNames.clear();
+        lineNames.add("Central");
+        lineColor.add(new Color(220,36,31));
+        lineNum.add(0);
+        
+        lineNames.add("Circle");
+        lineColor.add(new Color(255,206,0));        
+        lineNum.add(0);
+        
+        lineNames.add("District");
+        lineColor.add(new Color(0,114,41));       
+        lineNum.add(0);
+        
+        lineNames.add("Bakerloo");
+        lineColor.add(new Color(137,78,36));      
+        lineNum.add(0);
+        
+        lineNames.add("Hammersmith & City");
+        lineColor.add(new Color(215,153,175));    
+        lineNum.add(0);
+        
+        lineNames.add("Jubilee");
+        lineColor.add(new Color(134,143,152));        
+        lineNum.add(0);
+        
+        lineNames.add("Metropolitan");
+        lineColor.add(new Color(117,16,86));        
+        lineNum.add(0);
+        
+        lineNames.add("Northern");
+        lineColor.add(new Color(0,0,0));       
+        lineNum.add(0);
+        
+        lineNames.add("Piccadilly");
+        lineColor.add(new Color(0,25,168));
+        lineNum.add(0);
+        
+        lineNames.add("Victoria");
+        lineColor.add(new Color(0,160,226));       
+        lineNum.add(0);
+        
+        lineNames.add("Waterloo & City");
+        lineColor.add(new Color(118,208,189));
+        lineNum.add(0);
+    }
+    public void writeSelectedLines(ArrayList<Integer> list){
+        Writer writer = null;
+        for(Integer i: list){
+          try {
+                writer = new BufferedWriter(new OutputStreamWriter(
+               new FileOutputStream("lines.txt"), "utf-8"));
+               writer.write(i+"\n");
+            } catch (IOException ex) {
+               System.out.println("Cannot find file");
+            } finally {
+               try {writer.close();} catch (Exception ex) {}
+            }
+        }
+    }
+    public ArrayList<Integer> getSelectedLines(){
+        ArrayList<Integer> list = new ArrayList<>();
+         BufferedReader br = null; 
+         try{
+                br = new BufferedReader(new FileReader("lines.txt"));
+         }  
+         catch(FileNotFoundException e){
+                ArrayList<Integer> list1 = new ArrayList<Integer>();
+                list1.add(1);
+                list1.add(2);
+                list1.add(3);
+                writeSelectedLines(list1);
+                System.out.println("1");
+                return getSelectedLines();
+                
+         }
+    try {
+       // StringBuilder sb = new StringBuilder();
+        String line = br.readLine();
 
+        while (line != null) {
+           list.add(Integer.parseInt(line));
+           line = br.readLine();
+        }
+        
+    }catch(IOException e){
+        e.printStackTrace();
+    }
+    return list;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,136 +160,19 @@ public class TrainStatusPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
-        jButton1 = new javax.swing.JButton();
-        lineStatusBar1 = new gui.LineStatusBar();
-        lineStatusBar2 = new gui.LineStatusBar();
-        piccadillyBar = new gui.LineStatusBar();
-        circleBar = new gui.LineStatusBar();
-        bakerlooBar = new gui.LineStatusBar();
-        northernBar = new gui.LineStatusBar();
-        metropolitanLine = new gui.LineStatusBar();
         jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 0, 0));
-        setLayout(new java.awt.GridBagLayout());
-
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Documents\\NetBeansProjects\\GUIProject\\assets\\optionButton.png")); // NOI18N
-        jButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButton1.setPreferredSize(new java.awt.Dimension(23, 23));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        add(jButton1, gridBagConstraints);
-
-        lineStatusBar1.setText("Central");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        add(lineStatusBar1, gridBagConstraints);
-
-        lineStatusBar2.setText("District");
-        lineStatusBar2.setBackground(new java.awt.Color(51, 204, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        add(lineStatusBar2, gridBagConstraints);
-
-        piccadillyBar.setText("Piccadilly");
-        piccadillyBar.setBackground(new java.awt.Color(0, 0, 153));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        add(piccadillyBar, gridBagConstraints);
-
-        circleBar.setText("Circle");
-        circleBar.setTextColour(1);
-        circleBar.setBackground(new java.awt.Color(255, 255, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        add(circleBar, gridBagConstraints);
-
-        bakerlooBar.setText("Bakerloo");
-        bakerlooBar.setBackground(new java.awt.Color(153, 51, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        add(bakerlooBar, gridBagConstraints);
-
-        northernBar.setText("Northern");
-        northernBar.setBackground(new java.awt.Color(0, 0, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        add(northernBar, gridBagConstraints);
-
-        metropolitanLine.setText("Metropolitan");
-        metropolitanLine.setBackground(new java.awt.Color(153, 0, 51));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        add(metropolitanLine, gridBagConstraints);
+        setLayout(new java.awt.GridLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("London Underground");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 11, 0, 0);
-        add(jLabel1, gridBagConstraints);
+        add(jLabel1);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println("Hello");
-    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.LineStatusBar bakerlooBar;
-    private gui.LineStatusBar circleBar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private gui.LineStatusBar lineStatusBar1;
-    private gui.LineStatusBar lineStatusBar2;
-    private gui.LineStatusBar metropolitanLine;
-    private gui.LineStatusBar northernBar;
-    private gui.LineStatusBar piccadillyBar;
     // End of variables declaration//GEN-END:variables
 }

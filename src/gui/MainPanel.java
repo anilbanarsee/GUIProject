@@ -22,6 +22,7 @@ public class MainPanel extends javax.swing.JPanel {
     int indexSelected = 0;
     int backgroundPosX = 0;
     int backgroundPosY = 0;
+    boolean portrait = true;
     int x = 0;
     Timer timer;
     Image img;
@@ -33,6 +34,23 @@ public class MainPanel extends javax.swing.JPanel {
         initComponents();
        // this.setBackground(Color.BLACK);
     }
+    public void switchToPortrait(){
+        if(portrait){
+            return;           
+        }
+        portrait = true;
+        content.setPortrait();
+    }
+        public void switchToLandscape(){
+            
+        if(!portrait){
+            return;           
+        }
+        portrait = false;
+        
+        content.setLandscape();
+    }
+        
     public void swipeLeft(){
            
         indexSelected--;
@@ -42,7 +60,7 @@ public class MainPanel extends javax.swing.JPanel {
          System.out.println("C:"+indexSelected);
         if(indexSelected==0){
             
-            verticalLayoutPanel1.setCurrentWeatherPanel();
+            content.setCurrentWeatherPanel();
             moveBackground(0,10000);
             
             revalidate();
@@ -53,14 +71,14 @@ public class MainPanel extends javax.swing.JPanel {
             
             
             moveBackground(-320,10000);
-            verticalLayoutPanel1.setFutureWeatherPanel();
+            content.setFutureWeatherPanel();
             
           
             revalidate();
             repaint();
         }
         if(indexSelected==2){
-            verticalLayoutPanel1.setTravelPanel();
+            content.setTravelPanel();
             moveBackground(-640,10000);
            revalidate();
             repaint();
@@ -74,17 +92,17 @@ public class MainPanel extends javax.swing.JPanel {
         }
         System.out.println("D:"+indexSelected);
         if(indexSelected==0){
-            verticalLayoutPanel1.setCurrentWeatherPanel();
+            content.setCurrentWeatherPanel();
              moveBackground(0,10000);
            repaint();
         }
         if(indexSelected==1){
-            verticalLayoutPanel1.setFutureWeatherPanel();
+            content.setFutureWeatherPanel();
              moveBackground(-320,10000);
            repaint();
         }
         if(indexSelected==2){
-            verticalLayoutPanel1.setTravelPanel();
+            content.setTravelPanel();
             moveBackground(-640,10000);
            repaint();
         }
@@ -164,14 +182,14 @@ public class MainPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        verticalLayoutPanel1 = new gui.VerticalLayoutPanel();
+        content = new gui.ContentPane();
         topBar1 = new gui.TopBar();
 
         setLayout(new java.awt.GridBagLayout());
 
-        verticalLayoutPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        content.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                verticalLayoutPanel1MouseClicked(evt);
+                contentMouseClicked(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -183,7 +201,7 @@ public class MainPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        add(verticalLayoutPanel1, gridBagConstraints);
+        add(content, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -193,13 +211,13 @@ public class MainPanel extends javax.swing.JPanel {
         add(topBar1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void verticalLayoutPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verticalLayoutPanel1MouseClicked
+    private void contentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contentMouseClicked
      
-    }//GEN-LAST:event_verticalLayoutPanel1MouseClicked
+    }//GEN-LAST:event_contentMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private gui.ContentPane content;
     private gui.TopBar topBar1;
-    private gui.VerticalLayoutPanel verticalLayoutPanel1;
     // End of variables declaration//GEN-END:variables
 }

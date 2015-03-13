@@ -22,7 +22,7 @@ public class TemperatureGraph extends javax.swing.JPanel {
 
     int Xleft = 0;
     int Xright = 300;
-    int Ytop = 30;  
+    int Ytop = 20;  
     int Ybottom = 300;
     //These values are defualts
     public Color graphColor = Color.WHITE;
@@ -49,8 +49,8 @@ public class TemperatureGraph extends javax.swing.JPanel {
         this.temps = temps;
         this.tempsTimes = tempsTimes;
         Xright = d.width-0;
-        Ybottom = d.height-10;
-        //Give some breathing room at bottom and right
+        Ybottom = d.height-0;
+        //Give some breathing room at botto1m and right
         totalX = Xright - Xleft;
         totalY = Ybottom - Ytop;
         setSize(d.width,d.height);
@@ -143,7 +143,7 @@ public class TemperatureGraph extends javax.swing.JPanel {
             
             g2.setColor(GUIHandler.getColorForTemp(temps.get(i)));
             g2.setFont(new Font("Arial",1,12));
-            g2.drawString(Integer.toString(temps.get(i)),(int)x2-7,(int) y2-10);
+            g2.drawString(Integer.toString(temps.get(i))+"°",(int)x2-7,(int) y2-10);
            // g2.fillOval(x2, y2, 5, 5);
             x1 = x2;
             y1 = y2;

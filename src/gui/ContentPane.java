@@ -11,15 +11,16 @@ import java.awt.Color;
  *
  * @author Reetoo
  */
-public class VerticalLayoutPanel extends javax.swing.JPanel {
+public class ContentPane extends javax.swing.JPanel {
     int indexSelected = 0;
     CurrentWeatherPanel current;
     FutureWeatherPanel future;
     TravelPanel travel;
+
     /**
      * Creates new form VerticalLayoutPanel
      */
-    public VerticalLayoutPanel() {
+    public ContentPane() {
         System.out.println("1232323");
         initComponents();
         initalize();
@@ -37,6 +38,14 @@ public class VerticalLayoutPanel extends javax.swing.JPanel {
         
         travel = new TravelPanel();
         add(current);
+    }
+    public void setPortrait(){
+        future.setPortrait();
+        travel.setPortrait();
+    }
+    public void setLandscape(){
+        future.setLandscape();
+        travel.setLandscape();
     }
     public void setCurrentWeatherPanel(){
         removeAll();
@@ -79,7 +88,7 @@ public class VerticalLayoutPanel extends javax.swing.JPanel {
                 formKeyPressed(evt);
             }
         });
-        setLayout(new java.awt.GridLayout());
+        setLayout(new java.awt.GridLayout(1, 0));
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked

@@ -86,8 +86,8 @@ public class Util {
     
     }
     public static Font getWeatherFont(int size){
-       // return getFont("assets\\Font\\weather_font.ttf",size);
-        return new Font("Arial",0,12);
+        return getFont("assets\\Font\\weather_font.ttf",size);
+       //return new Font("Arial",0,12);
     }
     public static String[] getNextDays(int n){
         String[] days = {"Sunday  ","Monday  ","Tuesday ","Wednesday","Thursday","Friday  ","Saturday"};

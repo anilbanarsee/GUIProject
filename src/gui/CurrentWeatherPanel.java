@@ -32,13 +32,23 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
        initComponents();
        
        initalize();
-      
+      setBackground(new Color(0,0,0,0));
      //  setOpaque(false);
        //jPanel1.setBackground(Color.WHITE);
     }
+    
      @Override
     public boolean isOpaque(){
-        return false;
+        return true;
+    }
+    public void dimBackground(){
+        setBackground(new Color(0,0,0,130));
+    }
+    public void undimBackground(){
+        setBackground(new Color(0,0,0,0));
+    }
+    public void setTempSize(int n){
+        temperatureLabel.setFont(new Font("Arial",0,n));
     }
     public void initalize(){
         Font smallIcon = Util.getWeatherFont(25);

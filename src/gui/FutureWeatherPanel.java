@@ -6,6 +6,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.GridBagConstraints;
 
 /**
  *
@@ -19,12 +20,83 @@ public class FutureWeatherPanel extends javax.swing.JPanel {
     public FutureWeatherPanel() {
         
         initComponents();
+        currentWeatherPanel1.dimBackground();
        setBackground(new Color(0,0,0,0));
+
       // jPanel1.setOpaque(false);
     }
     @Override
     public boolean isOpaque(){
-        return false;
+        return true;
+    }
+    public void setLandscape(){
+        System.out.println("Hello");
+        currentWeatherPanel1.setTempSize(100);
+        removeAll();
+        GridBagConstraints  c = new GridBagConstraints();
+
+        c.fill = GridBagConstraints.BOTH;
+        add(currentWeatherPanel1,c);
+        
+        c = new GridBagConstraints();
+        c.gridx = 1;
+        c.gridy = 0;
+                c.weightx = 1;
+        c.weighty = 1;
+        c.fill = GridBagConstraints.BOTH;
+        c.anchor = GridBagConstraints.LAST_LINE_START;
+        
+        add(temperatureGraphPanel1,c);
+        
+        c = new GridBagConstraints();
+         c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 2;
+        c.fill = GridBagConstraints.BOTH;
+        
+        add(weekWeather1,c);
+        
+        
+        revalidate();
+        repaint();
+        temperatureGraphPanel1.resizeGraph();
+       
+    }
+    public void setPortrait(){
+        removeAll();
+        currentWeatherPanel1.setTempSize(120);
+        GridBagConstraints  c = new GridBagConstraints();
+         c = new java.awt.GridBagConstraints();
+        c.anchor = GridBagConstraints.LAST_LINE_START;
+        c.fill = GridBagConstraints.BOTH;
+        
+        c.weightx = 1.0;
+        c.weighty = 1.0;
+        add(currentWeatherPanel1,c);
+        
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 1;
+        c.fill = GridBagConstraints.BOTH;
+        c.ipady = 100;
+        c.anchor = GridBagConstraints.PAGE_END;
+       
+        add(temperatureGraphPanel1,c);
+         
+         
+        c = new GridBagConstraints();
+       c.gridx = 0;
+        c.gridy = 2;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.PAGE_END;
+        c.weightx = 0.1;
+
+        add(weekWeather1,c);
+        
+
+        revalidate();
+        repaint();
+        temperatureGraphPanel1.resizeGraph();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,6 +128,7 @@ public class FutureWeatherPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
         add(temperatureGraphPanel1, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_START;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -68,4 +141,6 @@ public class FutureWeatherPanel extends javax.swing.JPanel {
     private gui.TemperatureGraphPanel temperatureGraphPanel1;
     private gui.WeekWeather weekWeather1;
     // End of variables declaration//GEN-END:variables
+
+
 }

@@ -23,17 +23,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="startUpPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="startUp1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="startUpPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="startUp1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="gui.StartUpPanel" name="startUpPanel1">
+    <Container class="gui.StartUp" name="startUp1">
 
       <Layout>
         <DimensionLayout dim="0">

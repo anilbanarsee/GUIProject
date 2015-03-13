@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class TemperatureGraphPanel extends javax.swing.JPanel {
     TemperatureGraph temperatureGraph;
     ArrayList<String> times;
+    ArrayList<Integer> data;
     /**
      * Creates new form TemperatureGraphPanel
      */
@@ -32,6 +33,11 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
     }
     public TemperatureGraph getGraph(){
         return temperatureGraph;
+    }
+    public void resizeGraph(){
+      
+      temperatureGraph.setGraph(data,times,new Dimension(getWidth(),100));
+      
     }
      @Override
     public boolean isOpaque(){
@@ -59,7 +65,7 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
         add(temperatureGraph,c);
     }
     public void initData(){
-        ArrayList<Integer> data = GUIHandler.getTodayTemperatures();
+        data = GUIHandler.getTodayTemperatures();
         temperatureGraph.setGraph(data,times,new Dimension(320,100));
         
     }
@@ -84,6 +90,7 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setBackground(new java.awt.Color(51, 51, 51));
         setLayout(new java.awt.GridBagLayout());
     }// </editor-fold>//GEN-END:initComponents
 

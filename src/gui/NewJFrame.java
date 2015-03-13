@@ -5,19 +5,48 @@
  */
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 /**
  *
  * @author Reetoo
  */
 public class NewJFrame extends javax.swing.JFrame {
-
+    Timer timer;
+    int alpha;
     /**
      * Creates new form NewJFrame
      */
     public NewJFrame() {
         initComponents();
+        fadeIn();
         setVisible(true);
     }
+    public void fadeIn(){
+ //jLabel1.setForeground(new Color(0,0,0,0));
+        alpha = 0;
+       timer = new Timer(50, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+               alpha += 5;
+               //System.out.println(alpha);
+               //jLabel1.setText(""+alpha);
+               
+               repaint();
+                    if(alpha==255){
+                    timer.stop();
+                    }
+                    
+                
+                
+            }
+        }
+        );
+         timer.setInitialDelay(10);
+            timer.start(); 
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,18 +57,18 @@ public class NewJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        startUpPanel1 = new gui.StartUpPanel();
+        startUp1 = new gui.StartUp();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout startUpPanel1Layout = new javax.swing.GroupLayout(startUpPanel1);
-        startUpPanel1.setLayout(startUpPanel1Layout);
-        startUpPanel1Layout.setHorizontalGroup(
-            startUpPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout startUp1Layout = new javax.swing.GroupLayout(startUp1);
+        startUp1.setLayout(startUp1Layout);
+        startUp1Layout.setHorizontalGroup(
+            startUp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        startUpPanel1Layout.setVerticalGroup(
-            startUpPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        startUp1Layout.setVerticalGroup(
+            startUp1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
@@ -47,11 +76,11 @@ public class NewJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(startUpPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(startUp1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(startUpPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(startUp1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -93,6 +122,6 @@ public class NewJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.StartUpPanel startUpPanel1;
+    private gui.StartUp startUp1;
     // End of variables declaration//GEN-END:variables
 }

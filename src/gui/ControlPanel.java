@@ -42,7 +42,12 @@ public class ControlPanel extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Swipe Down");
+        jButton2.setText("Switch to Landscape");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Swipe Right ---->");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -51,7 +56,7 @@ public class ControlPanel extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Swipe Up");
+        jButton4.setText("Switch to Portait");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -63,17 +68,17 @@ public class ControlPanel extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jButton1)
                         .addGap(58, 58, 58)
                         .addComponent(jButton3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
+                        .addGap(89, 89, 89)
                         .addComponent(jButton4))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
+                        .addGap(83, 83, 83)
                         .addComponent(jButton2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -86,9 +91,9 @@ public class ControlPanel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton3))
-                .addGap(55, 55, 55)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -103,8 +108,12 @@ public class ControlPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        parent.switchToPortrait();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        parent.switchToLandscape();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
