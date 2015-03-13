@@ -6,6 +6,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 
 /**
@@ -45,7 +46,7 @@ public class FutureWeatherPanel extends javax.swing.JPanel {
         c.weighty = 1;
         c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.LAST_LINE_START;
-        
+        temperatureGraphPanel1.resizeGraph(new Dimension(345,130));
         add(temperatureGraphPanel1,c);
         
         c = new GridBagConstraints();
@@ -59,7 +60,6 @@ public class FutureWeatherPanel extends javax.swing.JPanel {
         
         revalidate();
         repaint();
-        temperatureGraphPanel1.resizeGraph();
        
     }
     public void setPortrait(){
@@ -80,7 +80,7 @@ public class FutureWeatherPanel extends javax.swing.JPanel {
         c.fill = GridBagConstraints.BOTH;
         c.ipady = 100;
         c.anchor = GridBagConstraints.PAGE_END;
-       
+        temperatureGraphPanel1.resizeGraph(new Dimension(320,100));
         add(temperatureGraphPanel1,c);
          
          
@@ -96,7 +96,6 @@ public class FutureWeatherPanel extends javax.swing.JPanel {
 
         revalidate();
         repaint();
-        temperatureGraphPanel1.resizeGraph();
     }
     /**
      * This method is called from within the constructor to initialize the form.
