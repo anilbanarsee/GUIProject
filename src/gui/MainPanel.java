@@ -50,9 +50,9 @@ public class MainPanel extends javax.swing.JPanel {
     private Image chooseRandomBackground()
     {
         Random rand = new Random();
-        int backgroundNo = rand.nextInt(3);
+        int backgroundNo = rand.nextInt(5);
         System.out.println(backgroundNo);
-        return Toolkit.getDefaultToolkit().createImage("assets//background" +Integer.toString(backgroundNo+1)+".jpg");
+        return Toolkit.getDefaultToolkit().createImage("assets//background" +Integer.toString(backgroundNo)+".jpg");
     }
     
     public void switchToPortrait(){
