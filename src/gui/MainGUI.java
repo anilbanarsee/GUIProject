@@ -78,38 +78,24 @@ public class MainGUI extends javax.swing.JFrame{
         companyName.setText("TEMPEST");
         companyName.setIcon(new ImageIcon(img));
         companyName.setFont(new Font("Arial",1,18));
-         timer2 = new Timer(50, new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-               
-                start = false;
-                remove(companyName);
-                initComponents();
-                
-                setSize(320,480);
-                repaint();
-            }
-        });
         add(companyName);
  //jLabel1.setForeground(new Color(0,0,0,0));
         alpha = 0;
         playSound();
-       timer = new Timer(25, new ActionListener(){
+       timer = new Timer(50, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                //alpha += 5;
                if(fadein){
-                   opacity += 0.008f;
+                   opacity += 0.005f;
                }
                
-               if(opacity>=1.0f){
+               if(opacity>1.0f){
                    opacity = 1.0f;
                    timer.stop();
-                   timer2.start();
-                     
                }
                
-             
+               System.out.println(opacity);
                //System.out.println(alpha);
                //companyName.setForeground(new Color(0,0,0,alpha));
                
@@ -123,10 +109,20 @@ public class MainGUI extends javax.swing.JFrame{
         );
          timer.setInitialDelay(10);
             timer.start(); 
-       
-        timer2.setInitialDelay(100);
+        timer2 = new Timer(50, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                start = false;
+                remove(companyName);
+                initComponents();
+                
+                setSize(320,480);
+                repaint();
+            }
+        });
+        timer2.setInitialDelay(3000);
         timer2.setRepeats(false);
-        //timer2.start();
+        timer2.start();
     }
     public void playSound(){
         JFXPanel fxPanel = new JFXPanel();
