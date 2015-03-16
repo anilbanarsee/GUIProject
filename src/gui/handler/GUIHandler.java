@@ -6,7 +6,12 @@
 package gui.handler;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import weatherdata.DataNotFoundException;
 import weatherdata.WeatherData;
 
@@ -15,6 +20,78 @@ import weatherdata.WeatherData;
  * @author User
  */
 public class GUIHandler {
+        public static int getCurrentTimeSlot(){
+        Calendar rightNow = Calendar.getInstance();
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+        hour = round(hour,3);
+        return hour;
+    }
+    public static int round(double i, int v){
+        return (int) (Math.round(i/v) * v);
+    }
+    public static int getTempToday(){
+        int hour = getCurrentTimeSlot();
+        hour = hour*60;
+        WeatherData data = new WeatherData();
+        try{
+        return data.getTempAtTime(hour);
+        }
+        catch(DataNotFoundException e){
+            System.out.println("Time : "+ hour);
+            return 0;
+        }
+    }
+    public static String readUnitSettings() throws FileNotFoundException{
+        BufferedReader br = new BufferedReader(new FileReader("unit.txt"));
+        String unit;
+        try {
+            unit = br.readLine();
+        } catch (IOException ex) {
+            unit = "C";
+        }
+        return unit;
+    }
+    public static int convertToFarenheit(int n){
+        double d = ((n * 9)/5)+32;
+        return (int) Math.floor(d);
+        
+    }
+    public static int getHumidityToday(){
+        WeatherData data = new WeatherData();
+         try{
+        return data.getCurrentHumidity();
+        }
+        catch(DataNotFoundException e){
+            return 15;
+        }
+    }
+    public static int getWeatherToday(){
+        WeatherData data = new WeatherData();
+         try{
+        return data.getCurrentWeather();
+        }
+        catch(DataNotFoundException e){
+            return 15;
+        }
+    }
+    public static int getWindSpeedToday(){
+        WeatherData data = new WeatherData();
+          try{
+        return data.getCurrentWindSpeed();
+        }
+        catch(DataNotFoundException e){
+            return 15;
+        }
+    }
+    public static String getWindDirectionToday(){
+         WeatherData data = new WeatherData();
+          try{
+        return data.getCurrentWindDirection();
+        }
+        catch(DataNotFoundException e){
+            return "NW";
+        }
+    }
     public static String getCodeForWeather(int n){
         switch(n){
             case 0: return "C";
