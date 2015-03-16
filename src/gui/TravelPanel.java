@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -60,7 +61,7 @@ public class TravelPanel extends javax.swing.JPanel {
     public void initalize(){
         status = new TrainStatusPanel();
         current = new CurrentWeatherPanel();
-        
+ 
         
         
         GridBagConstraints c = new  GridBagConstraints();
@@ -83,6 +84,7 @@ public class TravelPanel extends javax.swing.JPanel {
     public boolean isOpaque(){
         return false;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

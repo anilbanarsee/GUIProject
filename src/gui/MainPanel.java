@@ -175,7 +175,7 @@ public class MainPanel extends javax.swing.JPanel {
                //companyName.setForeground(new Color(0,0,0,alpha));
                
                repaint();
-               System.out.println("1");   
+              // System.out.println("1");   
                     
                 
                 
@@ -197,6 +197,7 @@ public class MainPanel extends javax.swing.JPanel {
                 // setSize(320,480);
                  revalidate();
                  repaint();
+                 
                  //switchToLandscape();
                  //switchToPortrait();
                  // swipeRight();
@@ -205,6 +206,23 @@ public class MainPanel extends javax.swing.JPanel {
         });
         timer2.setInitialDelay(0);
         timer2.setRepeats(false);
+        
+        Timer timer3 = new Timer(100, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                revalidate();
+                repaint();
+
+                 //switchToLandscape();
+                 //switchToPortrait();
+                 // swipeRight();
+                // swipeLeft();
+            }
+        });
+
+        //timer3.setRepeats(false);
+        timer3.setInitialDelay(100);
+        timer3.start();
         //timer2.start();
     }
     @Override

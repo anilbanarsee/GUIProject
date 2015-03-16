@@ -13,6 +13,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,11 +32,12 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
      private BufferedImage image;
      private BufferedImage weatherIcon;
      private Font weatherFont,weatherFont2;
-         private javax.swing.JLabel degreeSymbol;
+     private JLabel degreeSymbol;
    
     private JPanel jPanel1, jPanel2;
      private JLabel humidIcon, humidLabel, temperatureLabel, weatheRIcon, weatherDesc, windDirectionIcon,
              windDirectionLabel, windSpeedIcon, windSpeedLabel;
+     private int temperature;
     /**
      * Creates new form CurrentWeatherPanel
      */
@@ -49,6 +56,32 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
      @Override
     public boolean isOpaque(){
         return true;
+    }
+    public boolean isCelcius(){
+        BufferedReader br;
+         try {
+             br =  new BufferedReader(new FileReader("unit.txt"));
+         } catch (FileNotFoundException ex) {
+             return true;
+         }
+         String s = "C";
+         try {
+             s = br.readLine();
+         } catch (IOException ex) {
+             
+         }
+         if(s.equals("C")){
+             return true;
+         }
+         return false;
+    }
+    public void switchToFarenheit(){
+        setTemperature(GUIHandler.convertToFarenheit(temperature));
+        degreeSymbol.setText("°F");
+    }
+    public void switchToCelcius(){
+        setTemperature(temperature);
+        degreeSymbol.setText("°C");
     }
     public void dimBackground(){
         setBackground(new Color(0,0,0,130));
@@ -266,6 +299,7 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         weatherDesc.setText(GUIHandler.getDescForWeather(n));
     }
     public void setTemperature(int n){
+        temperature = n;
         temperatureLabel.setText(n+"");
     }
     public void setHumidity(int n){
