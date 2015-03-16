@@ -28,23 +28,29 @@ import javax.imageio.ImageIO;
  */
 public class MainPanel extends javax.swing.JPanel {
     boolean moving = false;
-    boolean start = false;
+    boolean start = true;
     int indexSelected = 0;
     int backgroundPosX = 0;
     int backgroundPosY = 0;
+    Timer timer1, timer2;
     boolean portrait = true;
-    float opacity = 0.5f;
+    boolean fadein = true;
+    //float alpha = 0.0f;
+    float opacity = 0.0f;
     int x = 0;
     BufferedImage logo;
     Timer timer;
     Image img;
     /**
      * Creates new form MainPanel
+     * @throws java.io.IOException
      */
-    public MainPanel() {
+    public MainPanel() throws IOException {
+         logo = ImageIO.read(new File("assets//logo.png"));
          img = chooseRandomBackground();
-        initComponents();
-       // this.setBackground(Color.BLACK);
+       // initComponents();
+         startUp();
+        this.setBackground(Color.WHITE);
     }
     
     private Image chooseRandomBackground()
@@ -73,7 +79,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
         
     public void swipeLeft(){
-           
+        
         indexSelected--;
         if(indexSelected<0){
             indexSelected = 2;
@@ -128,14 +134,100 @@ public class MainPanel extends javax.swing.JPanel {
            repaint();
         }
     }
+     public void startUp(){
+        setSize(320,480);
+        
+       // companyName = new JLabel();
+       // companyName.setText("TEMPEST");
+       // companyName.setIcon(new ImageIcon(img));
+       // companyName.setFont(new Font("Arial",1,18));
+       // add(companyName);
+ //jLabel1.setForeground(new Color(0,0,0,0));
+        //alpha = 0;
+      //  playSound();
+       timer = new Timer(10, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+               
+               //alpha += 5;
+               if(fadein){
+                   opacity += 0.008f;
+               }
+               else{
+                   opacity -= 0.01f;
+                  // System.out.println("hello");
+               }
+               
+               if(opacity>=1.0f){
+                   opacity = 1.0f;
+                   fadein = false;
+               }
+               if(opacity<0.0f){
+                   opacity = 0.0f;
+                   //System.out.println("Hello");
+                   start = false;
+                   timer.stop();
+                   timer2.start();
+               }
+               
+               //System.out.println(opacity);
+               //System.out.println(alpha);
+               //companyName.setForeground(new Color(0,0,0,alpha));
+               
+               repaint();
+               System.out.println("1");   
+                    
+                
+                
+            }
+        }
+        );
+         timer.setInitialDelay(0);
+            timer.start(); 
+        timer2 = new Timer(10, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                start = false;
+                
+                initComponents();
+
+                
+                
+                
+                // setSize(320,480);
+                 revalidate();
+                 repaint();
+                 //switchToLandscape();
+                 //switchToPortrait();
+                 // swipeRight();
+                // swipeLeft();
+            }
+        });
+        timer2.setInitialDelay(0);
+        timer2.setRepeats(false);
+        //timer2.start();
+    }
     @Override
     public void paintComponent(Graphics g){
         
         super.paintComponent(g);
+        if(start){
+           // System.out.println("test");
+            //System.out.println("Hello");
+        //super.paintComponents(g);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+        g2.drawImage(logo,19,107,null);
+        //g2.dispose();
         
+        }
+        else{
+            
+       
         //System.out.println("Hello");
         g.drawImage(img,backgroundPosX,backgroundPosY,null);
         
+        }
         
     }
     public void moveBackground(int n, int time){
