@@ -13,13 +13,19 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -33,8 +39,8 @@ public class TrainStatusPanel extends javax.swing.JPanel {
     ArrayList<Integer> lineNum;
     ArrayList<Color> lineColor;
     ArrayList<LineStatusBar> lineBars;
-              
     private JLabel jLabel1;
+    private JButton addButton;
     
     
     /**
@@ -43,9 +49,10 @@ public class TrainStatusPanel extends javax.swing.JPanel {
     public TrainStatusPanel() {
         initComponents();
         setLayout(new GridLayout(0,1));
-        initInfo();
+         initInfo();
         initLineBars();
         addBars();
+        
   
     }
     public void test(){
@@ -59,16 +66,45 @@ public class TrainStatusPanel extends javax.swing.JPanel {
             }
         }
     }
+    public void addBar(LineStatusBar bar){
+        remove(addButton);
+        remove(bar);
+        add(bar);
+        add(addButton);
+    }
+    public void removeBar(LineStatusBar bar, int n){
+       
+        remove(bar);
+         ArrayList<Integer> selected = getSelectedLines();
+         selected.remove(new Integer(n));
+         System.out.println(selected);
+         writeSelectedLines(selected);
+         
+        
+    }
     public void initLineBars(){
         lineBars = new ArrayList<>();
         LineStatusBar line = null;
         for(int i=0; i<lineNames.size(); i++){
             line = new LineStatusBar();
+             
+            line.addMouseListener(new TrainMouseAdapter(line, i, this));
             line.setText(lineNames.get(i));
             line.setColour(lineColor.get(i));
             lineBars.add(line);
         }
     }
+    public LineStatusBar getLine(String s){
+        int x = 0;
+        for(int i=0; i<lineNames.size(); i++){
+            x = i;
+            if(lineNames.get(i).equals(s)){
+                break;
+            }
+        }
+        return lineBars.get(x);
+    }
+    
     public void initInfo(){
         lineNames = new ArrayList<>();
         lineColor = new ArrayList<>();
@@ -77,6 +113,7 @@ public class TrainStatusPanel extends javax.swing.JPanel {
         lineNames.clear();
         lineNames.add("Central");
         lineColor.add(new Color(220,36,31));
+        
         lineNum.add(0);
         
         lineNames.add("Circle");
@@ -121,10 +158,18 @@ public class TrainStatusPanel extends javax.swing.JPanel {
     }
     public void writeSelectedLines(ArrayList<Integer> list){
         Writer writer = null;
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("lines.txt"), "utf-8"));
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(TrainStatusPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TrainStatusPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         for(Integer i: list){
+            
           try {
-                writer = new BufferedWriter(new OutputStreamWriter(
-               new FileOutputStream("lines.txt"), "utf-8"));
+               
                writer.write(i+"\n");
             } catch (IOException ex) {
                System.out.println("Cannot find file");
@@ -163,20 +208,25 @@ public class TrainStatusPanel extends javax.swing.JPanel {
     }
     return list;
     }
-    public void clicked(MouseEvent evt){
-        System.out.println("Hlllllll");
+    public void clicked(MouseEvent evt, int n){
+        System.out.println(evt.getY());
       int y = evt.getY();
       if(y>30){
           System.out.println("More");
       }
       
     }
+    public void addButtonPressed(){
+        getParent().getParent().add(new ChooseLineFrame(this));
+    }
     private void initComponents() {
 
-                        addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                clicked(evt);
-            }
+        addButton = new JButton();
+        addButton.setText("Add Line");
+        addButton.addActionListener(new ActionListener(){
+           public void actionPerformed(ActionEvent e){
+               addButtonPressed();
+           } 
         });
         jLabel1 = new javax.swing.JLabel();
 
@@ -186,6 +236,8 @@ public class TrainStatusPanel extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("London Underground");
         add(jLabel1);
+       
+        add(addButton);
     }                   
 
 
