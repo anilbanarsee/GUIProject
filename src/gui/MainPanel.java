@@ -41,13 +41,18 @@ public class MainPanel extends javax.swing.JPanel {
 
    
     public MainPanel() throws IOException {
+        loadComponents();
          logo = ImageIO.read(new File("assets//logo.png"));
          img = chooseRandomBackground();
        // initComponents();
          startUp();
+         
         this.setBackground(Color.WHITE);
     }
-    
+    public void loadComponents(){
+         content = new gui.ContentPane();
+        topBar1 = new gui.TopBar();
+    }
     private Image chooseRandomBackground()
     {
         Random rand = new Random();
@@ -288,8 +293,7 @@ public class MainPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        content = new gui.ContentPane();
-        topBar1 = new gui.TopBar();
+       
 
         setLayout(new java.awt.GridBagLayout());
 

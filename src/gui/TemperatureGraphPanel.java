@@ -70,16 +70,17 @@ public class TemperatureGraphPanel extends javax.swing.JPanel {
         
     }
     public void initTimes(){
+        System.out.println("HELLO");
         times = new ArrayList<String>();
         times.clear();
-        times.add("0");
-        times.add("180");
-        times.add("360");
-        times.add("540");
-        times.add("720");
-        times.add("900");
-        times.add("1080");
-        times.add("1260");
+        times.add("");
+        times.add("3am");
+        times.add("6am");
+        times.add("9am");
+        times.add("Noon");
+        times.add("3pm");
+        times.add("6pm");
+        times.add("9pm");
     }
     /**
      * This method is called from within the constructor to initialize the form.

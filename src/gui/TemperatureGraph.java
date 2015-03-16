@@ -144,7 +144,8 @@ public class TemperatureGraph extends javax.swing.JPanel {
             g2.setColor(GUIHandler.getColorForTemp(temps.get(i)));
             g2.setFont(new Font("Arial",1,12));
             g2.drawString(Integer.toString(temps.get(i))+"°",(int)x2-7,(int) y2-10);
-            g2.drawString(tempsTimes.get(i),x2-7,Ytop-21);
+            g2.setColor(Color.WHITE);
+            g2.drawString(tempsTimes.get(i),x1-16,Ytop-21);
            // g2.fillOval(x2, y2, 5, 5);
             x1 = x2;
             y1 = y2;

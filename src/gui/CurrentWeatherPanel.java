@@ -5,6 +5,7 @@
  */
 package gui;
 
+import gui.handler.GUIHandler;
 import gui.handler.Util;
 import java.awt.Color;
 import java.awt.Font;
@@ -13,6 +14,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 
 /**
@@ -23,6 +26,11 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
      private BufferedImage image;
      private BufferedImage weatherIcon;
      private Font weatherFont,weatherFont2;
+         private javax.swing.JLabel degreeSymbol;
+   
+    private JPanel jPanel1, jPanel2;
+     private JLabel humidIcon, humidLabel, temperatureLabel, weatheRIcon, weatherDesc, windDirectionIcon,
+             windDirectionLabel, windSpeedIcon, windSpeedLabel;
     /**
      * Creates new form CurrentWeatherPanel
      */
@@ -32,6 +40,7 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
        initComponents();
        
        initalize();
+       initData();
       setBackground(new Color(0,0,0,0));
      //  setOpaque(false);
        //jPanel1.setBackground(Color.WHITE);
@@ -49,6 +58,15 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
     }
     public void setTempSize(int n){
         temperatureLabel.setFont(new Font("Arial",0,n));
+    }
+     public void initData(){
+        
+        setWeatherIcon(GUIHandler.getWeatherToday());
+        setWeather(GUIHandler.getWeatherToday());
+        setTemperature(GUIHandler.getTempToday());
+        setHumidity(GUIHandler.getHumidityToday());
+        setWindDirection(GUIHandler.getWindDirectionToday());
+        setWindSpeed(GUIHandler.getWindSpeedToday());
     }
     public void initalize(){
         Font smallIcon = Util.getWeatherFont(25);
@@ -111,7 +129,7 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
     }
    
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -135,11 +153,7 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         windDirectionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         windDirectionLabel.setText("windDirectionLabel");
 
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formMouseClicked(evt);
-            }
-        });
+     
         setLayout(new java.awt.GridBagLayout());
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -216,7 +230,7 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 1, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         jPanel2.add(windSpeedLabel, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -241,25 +255,28 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         add(jPanel1, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formMouseClicked
-    public void setLocationText(String s){
-        
-    }
-    public void setTimeText(int n){
-        
-    }
-    public void setWeatherText(String s){
-        
-    }
+    
+   
     public void setWeatherIcon(int n){
-        
+        weatheRIcon.setText(GUIHandler.getCodeForWeather(n));
     }
     public void setWeather(int n){
+        weatherDesc.setText(GUIHandler.getDescForWeather(n));
+    }
+    public void setTemperature(int n){
+        temperatureLabel.setText(n+"");
+    }
+    public void setHumidity(int n){
+        humidLabel.setText(n+"");
         
+    }
+    public void setWindDirection(String s){
+        windDirectionLabel.setText(s);
+    }
+    public void setWindSpeed(int n){
+        windSpeedLabel.setText(n+"");
     }
     public void initFont(){
         weatherFont = Util.getWeatherFont(125);
@@ -284,18 +301,7 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         G2D.dispose();
         return tempImage;
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel degreeSymbol;
-    private javax.swing.JLabel humidIcon;
-    private javax.swing.JLabel humidLabel;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel temperatureLabel;
-    private javax.swing.JLabel weatheRIcon;
-    private javax.swing.JLabel weatherDesc;
-    private javax.swing.JLabel windDirectionIcon;
-    private javax.swing.JLabel windDirectionLabel;
-    private javax.swing.JLabel windSpeedIcon;
-    private javax.swing.JLabel windSpeedLabel;
-    // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify                     
+
+    // End of variables declaration                   
 }
