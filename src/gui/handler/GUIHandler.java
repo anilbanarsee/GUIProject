@@ -72,7 +72,9 @@ public class GUIHandler {
         return data.getCurrentWeather();
         }
         catch(DataNotFoundException e){
+            System.out.println("Weather not found");
             return 15;
+            
         }
     }
     public static int getWindSpeedToday(){

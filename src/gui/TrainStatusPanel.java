@@ -41,12 +41,14 @@ public class TrainStatusPanel extends javax.swing.JPanel {
     ArrayList<LineStatusBar> lineBars;
     private JLabel jLabel1;
     private JButton addButton;
-    
+    boolean selecting = false;
+    TravelPanel parent;
     
     /**
      * Creates new form TrainStatusPanel
      */
-    public TrainStatusPanel() {
+    public TrainStatusPanel(TravelPanel parent) {
+        this.parent = parent;
         initComponents();
         setLayout(new GridLayout(0,1));
          initInfo();
@@ -66,9 +68,12 @@ public class TrainStatusPanel extends javax.swing.JPanel {
             }
         }
     }
-    public void addBar(LineStatusBar bar){
+    public void addBar(LineStatusBar bar, int n){
         remove(addButton);
         remove(bar);
+        ArrayList<Integer> selected = getSelectedLines();
+        selected.add(n);
+        writeSelectedLines(selected);
         add(bar);
         add(addButton);
     }
@@ -104,7 +109,16 @@ public class TrainStatusPanel extends javax.swing.JPanel {
         }
         return lineBars.get(x);
     }
-    
+  public int getLineNum(String s){
+        
+        for(int i=0; i<lineNames.size(); i++){
+           
+            if(lineNames.get(i).equals(s)){
+                return i;
+            }
+        }
+        return 0;
+    }
     public void initInfo(){
         lineNames = new ArrayList<>();
         lineColor = new ArrayList<>();
@@ -178,6 +192,10 @@ public class TrainStatusPanel extends javax.swing.JPanel {
             }
         }
     }
+    public void endSelectBar(){
+        selecting = false;
+        parent.parent.setTravelPanel();
+    }
     public ArrayList<Integer> getSelectedLines(){
         ArrayList<Integer> list = new ArrayList<>();
          BufferedReader br = null; 
@@ -217,6 +235,10 @@ public class TrainStatusPanel extends javax.swing.JPanel {
       
     }
     public void addButtonPressed(){
+        if(selecting){
+            return;
+        }
+        selecting = true;
         getParent().getParent().add(new ChooseLineFrame(this));
     }
     private void initComponents() {

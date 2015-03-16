@@ -49,6 +49,7 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
        initalize();
        initData();
       setBackground(new Color(0,0,0,0));
+      validateUnit();
      //  setOpaque(false);
        //jPanel1.setBackground(Color.WHITE);
     }
@@ -56,6 +57,14 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
      @Override
     public boolean isOpaque(){
         return true;
+    }
+    public void validateUnit(){
+        if(isCelcius()){
+            switchToCelcius();
+            return;
+        }
+        switchToFarenheit();
+        return;
     }
     public boolean isCelcius(){
         BufferedReader br;
@@ -76,11 +85,11 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
          return false;
     }
     public void switchToFarenheit(){
-        setTemperature(GUIHandler.convertToFarenheit(temperature));
+        setTemperature(GUIHandler.convertToFarenheit(temperature),false);
         degreeSymbol.setText("°F");
     }
     public void switchToCelcius(){
-        setTemperature(temperature);
+        setTemperature(temperature,true);
         degreeSymbol.setText("°C");
     }
     public void dimBackground(){
@@ -96,7 +105,7 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
         
         setWeatherIcon(GUIHandler.getWeatherToday());
         setWeather(GUIHandler.getWeatherToday());
-        setTemperature(GUIHandler.getTempToday());
+        setTemperature(GUIHandler.getTempToday(),true);
         setHumidity(GUIHandler.getHumidityToday());
         setWindDirection(GUIHandler.getWindDirectionToday());
         setWindSpeed(GUIHandler.getWindSpeedToday());
@@ -298,8 +307,10 @@ public class CurrentWeatherPanel extends javax.swing.JPanel {
     public void setWeather(int n){
         weatherDesc.setText(GUIHandler.getDescForWeather(n));
     }
-    public void setTemperature(int n){
+    public void setTemperature(int n, boolean b){
+        if(b){
         temperature = n;
+        }
         temperatureLabel.setText(n+"");
     }
     public void setHumidity(int n){

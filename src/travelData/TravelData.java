@@ -50,7 +50,7 @@ public class TravelData implements TravelDataInterface
             Element lineStatusElement = (Element)nList.item(i);
             NodeList lineList = lineStatusElement.getElementsByTagName("Line");
             
-            Element lineElement = (Element)lineList.item(0);
+            Element lineElement = (Element)lineList.item(i);
             System.out.println(lineElement.getAttributes().getNamedItem("ID"));
             if(Integer.parseInt(lineElement.getAttributes().getNamedItem("ID").getNodeValue())==lineNumber)
             {

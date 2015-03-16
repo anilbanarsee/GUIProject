@@ -51,7 +51,7 @@ public class MainPanel extends javax.swing.JPanel {
     }
     public void loadComponents(){
          content = new gui.ContentPane();
-        topBar1 = new gui.TopBar();
+        topBar1 = new gui.TopBar(content);
     }
     private Image chooseRandomBackground()
     {

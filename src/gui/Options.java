@@ -17,11 +17,12 @@ import javax.swing.AbstractButton;
  * @author Magdi
  */
 public class Options extends javax.swing.JPanel {
-
+    ContentPane content;
     /**
      * Creates new form Options
      */
-    public Options() {
+    public Options(ContentPane parent) {
+        content = parent;
         initComponents();
     }
 
@@ -130,8 +131,10 @@ public class Options extends javax.swing.JPanel {
             celsiusRadio.setSelected(false);
         }
         else {
-            //do nothing
+            
         }
+        content.setCurrentWeatherPanel();
+        content.validateUnit();
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void celsiusRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_celsiusRadioActionPerformed

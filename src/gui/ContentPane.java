@@ -16,6 +16,7 @@ public class ContentPane extends javax.swing.JPanel {
     CurrentWeatherPanel current;
     FutureWeatherPanel future;
     TravelPanel travel;
+    Options options;
 
     /**
      * Creates new form VerticalLayoutPanel
@@ -36,8 +37,12 @@ public class ContentPane extends javax.swing.JPanel {
      //   future.setBackground(Color.WHITE);
        // future.setOpaque(false);
         
-        travel = new TravelPanel();
+        travel = new TravelPanel(this);
+        options = new Options(this);
         add(current);
+    }
+    public void validateUnit(){
+        current.validateUnit();
     }
     public void setPortrait(){
         future.setPortrait();
@@ -65,6 +70,12 @@ public class ContentPane extends javax.swing.JPanel {
         removeAll();
        // revalidate();
         add(travel);
+        revalidate();
+        repaint();
+    }
+    public void setOptionPanel(){
+        removeAll();
+        add(options);
         revalidate();
         repaint();
     }

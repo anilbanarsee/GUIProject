@@ -12,7 +12,7 @@ import javax.swing.JInternalFrame;
  *
  * @author Hamzah
  */
-public class ChooseLineFrame extends JFrame {
+public class ChooseLineFrame extends JInternalFrame {
     
     TrainStatusPanel trainStatusPanel;
     
@@ -50,10 +50,11 @@ public class ChooseLineFrame extends JFrame {
         lineBox.addItem("District");
         lineBox.addItem("Bakerloo");
         lineBox.addItem("Hammersmith & City");
-        lineBox.addItem("Piccdilly");
+        lineBox.addItem("Piccadilly");
         lineBox.addItem("Metropolitan");
         lineBox.addItem("Northern");
         lineBox.addItem("Victoria");
+        lineBox.addItem("Waterloo");
         
         
         JButton selectLineButton = new JButton("Select Line");
@@ -63,7 +64,7 @@ public class ChooseLineFrame extends JFrame {
          public void actionPerformed(ActionEvent e) {
              chooseLine((String) lineBox.getSelectedItem());
              dispose();
-             trainStatusPanel.getParent().repaint();
+             trainStatusPanel.endSelectBar();
              
          }});
         add(lineBox);
@@ -72,7 +73,7 @@ public class ChooseLineFrame extends JFrame {
     
     public void chooseLine(String obj)
     {
-        trainStatusPanel.addBar(trainStatusPanel.getLine(obj));
+        trainStatusPanel.addBar(trainStatusPanel.getLine(obj),trainStatusPanel.getLineNum(obj));
         
     }
 }
