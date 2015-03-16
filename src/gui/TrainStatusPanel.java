@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -29,6 +30,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import weatherdata.DataNotFoundException;
 
 /**
  *
@@ -38,6 +40,7 @@ public class TrainStatusPanel extends javax.swing.JPanel {
     ArrayList<String> lineNames;
     ArrayList<Integer> lineNum;
     ArrayList<Color> lineColor;
+    travelData.TravelData travelData;
     ArrayList<LineStatusBar> lineBars;
     private JLabel jLabel1;
     private JButton addButton;
@@ -48,6 +51,7 @@ public class TrainStatusPanel extends javax.swing.JPanel {
      * Creates new form TrainStatusPanel
      */
     public TrainStatusPanel(TravelPanel parent) {
+         travelData  = new travelData.TravelData();
         this.parent = parent;
         initComponents();
         setLayout(new GridLayout(0,1));
@@ -72,8 +76,13 @@ public class TrainStatusPanel extends javax.swing.JPanel {
         remove(addButton);
         remove(bar);
         ArrayList<Integer> selected = getSelectedLines();
+        System.out.println(selected);
         selected.add(n);
-        writeSelectedLines(selected);
+        try {
+            writeSelectedLines(selected);
+        } catch (IOException ex) {
+            Logger.getLogger(TrainStatusPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         add(bar);
         add(addButton);
     }
@@ -83,20 +92,68 @@ public class TrainStatusPanel extends javax.swing.JPanel {
          ArrayList<Integer> selected = getSelectedLines();
          selected.remove(new Integer(n));
          System.out.println(selected);
-         writeSelectedLines(selected);
+        try {
+            writeSelectedLines(selected);
+        } catch (IOException ex) {
+            Logger.getLogger(TrainStatusPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
          
         
     }
     public void initLineBars(){
-        lineBars = new ArrayList<>();
+                lineBars = new ArrayList<>();
         LineStatusBar line = null;
         for(int i=0; i<lineNames.size(); i++){
-            line = new LineStatusBar();
-             
-            line.addMouseListener(new TrainMouseAdapter(line, i, this));
-            line.setText(lineNames.get(i));
-            line.setColour(lineColor.get(i));
-            lineBars.add(line);
+            try
+            {
+                line = new LineStatusBar();
+                
+                line.addMouseListener(new TrainMouseAdapter(line, i, this));
+                line.setText(lineNames.get(i));
+                
+                switch(lineNames.get(i))
+                {
+                    case "Central":
+                        line.setService(travelData.getStatusOfLine(2));
+                        break;
+                    case "Circle":
+                        line.setService(travelData.getStatusOfLine(7));
+                        break;
+                    case "District":
+                        line.setService(travelData.getStatusOfLine(9));
+                        break;
+                    case "Bakerloo":
+                        line.setService(travelData.getStatusOfLine(1));
+                        break;
+                    case "Hammersmith and City":
+                        line.setService(travelData.getStatusOfLine(8));
+                        break;
+                    case "Jubilee":
+                        line.setService(travelData.getStatusOfLine(4));
+                        break;
+                    case "Metropolitan":
+                        line.setService(travelData.getStatusOfLine(11));
+                        break;
+                    case "Northern":
+                        line.setService(travelData.getStatusOfLine(5));
+                        break;
+                    case "Piccadilly":
+                        line.setService(travelData.getStatusOfLine(6));
+                        break;
+                    case "Victoria":
+                        line.setService(travelData.getStatusOfLine(3));
+                        break;
+                    case "Waterloo & City":
+                        line.setService(travelData.getStatusOfLine(12));
+                        break;
+                }
+                line.setColour(lineColor.get(i));
+                lineBars.add(line);
+            }
+            catch (DataNotFoundException ex)
+            {
+                line.setService("No Data Available");
+            }
         }
     }
     public LineStatusBar getLine(String s){
@@ -170,27 +227,12 @@ public class TrainStatusPanel extends javax.swing.JPanel {
         lineColor.add(new Color(118,208,189));
         lineNum.add(0);
     }
-    public void writeSelectedLines(ArrayList<Integer> list){
-        Writer writer = null;
-        try {
-            writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream("lines.txt"), "utf-8"));
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(TrainStatusPanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TrainStatusPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for(Integer i: list){
-            
-          try {
-               
-               writer.write(i+"\n");
-            } catch (IOException ex) {
-               System.out.println("Cannot find file");
-            } finally {
-               try {writer.close();} catch (Exception ex) {}
-            }
-        }
+    public void writeSelectedLines(ArrayList<Integer> list) throws IOException{
+       PrintWriter writer = new PrintWriter("lines.txt", "UTF-8");
+       for(Integer i: list){
+           writer.println(i+"");
+       }
+        writer.close();
     }
     public void endSelectBar(){
         selecting = false;
@@ -207,7 +249,11 @@ public class TrainStatusPanel extends javax.swing.JPanel {
                 list1.add(1);
                 list1.add(2);
                 list1.add(3);
+            try {
                 writeSelectedLines(list1);
+            } catch (IOException ex) {
+                Logger.getLogger(TrainStatusPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 System.out.println("1");
                 return getSelectedLines();
                 

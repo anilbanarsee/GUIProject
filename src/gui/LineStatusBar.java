@@ -75,6 +75,10 @@ public class LineStatusBar extends javax.swing.JPanel {
          jLabel2.setForeground(Color.BLACK);
         //System.out.println("setTextColour");
     }
+       public void setService(String s)
+    {
+        jLabel2.setText(s);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
