@@ -62,6 +62,10 @@ public class LineStatusBar extends javax.swing.JPanel {
     public void setText(String s){
         jLabel1.setText(s);
     }
+    public void setService(String s)
+    {
+        jLabel2.setText(s);
+    }
     public void setColour(Color c){
         setBackground(c);
     }

@@ -5,10 +5,12 @@
  */
 package gui;
 
+import javax.swing.JInternalFrame;
+
 /**
  *
  * @author Reetoo
  */
-public class InternalChooseLine extends InternalFrame{
+public class InternalChooseLine extends JInternalFrame{
     
 }
