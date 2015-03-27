@@ -24,6 +24,7 @@ import weatherdata.DataNotFoundException;
 public class TravelData implements TravelDataInterface
 {
     Document docTravel;
+    boolean init = false;
     public TravelData()
     {
         try
@@ -34,16 +35,20 @@ public class TravelData implements TravelDataInterface
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             docTravel = dBuilder.parse(travelData.openConnection().getInputStream());
             docTravel.getDocumentElement().normalize();
+            init = true;
         }
         catch (SAXException | IOException | ParserConfigurationException ex)
         {
-            Logger.getLogger(TravelData.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(TravelData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     @Override
     public String getStatusOfLine(int lineNumber) throws DataNotFoundException
     {
+        if(!init){
+            throw new DataNotFoundException();
+         }
         NodeList nList = docTravel.getElementsByTagName("LineStatus");
         for(int i=0;i<nList.getLength();i++)
         {
@@ -66,6 +71,9 @@ public class TravelData implements TravelDataInterface
     @Override
     public String getDisruptionDescOfLine(int lineNumber) throws DataNotFoundException
     {
+        if(!init){
+            throw new DataNotFoundException();
+         }
         NodeList nList = docTravel.getElementsByTagName("LineStatus");
         for(int i=0;i<nList.getLength();i++)
         {
